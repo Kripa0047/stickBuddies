@@ -46,13 +46,16 @@ router.post('/user/new', (req, res) => {
 
 // @route to render form to a user
 router.get('/user/form/:id', (req, res) => {
+    console.log("no id")
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        console.log("valid id")
         // Yes, it's a valid ObjectId, proceed with `findById` call.
         User.findOne({ _id: req.params.id }, (err, fuser) => {
             if (err) {
                 res.send(err);
             } else {
                 if (fuser != null) {
+                    console.log("present id")
                     if (fuser.qa.length<1) {
                         // res.render('user/form',{id:fuser._id});
                         res.json({
@@ -60,6 +63,7 @@ router.get('/user/form/:id', (req, res) => {
                             user: fuser
                         });
                     } else {
+                        console.log("invalid id")
                         // res.redirect('/user/share/'+fuser._id);
                         res.json({
                             getredirect: "/user/share/" + fuser._id
