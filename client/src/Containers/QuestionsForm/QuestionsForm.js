@@ -6,7 +6,7 @@ import axios from 'axios';
 
 class QuestionsForm extends Component {
     state = {
-        user: "",
+        user: null,
         questions: [],
         options: [],
         suggestions: [],
@@ -15,7 +15,14 @@ class QuestionsForm extends Component {
 
     componentDidMount() {
         // console.log(this.props);
-        let user = this.props.user.user.username;
+        let user = null;
+        try {
+            user = this.props.user.user.username;
+        }
+        catch (error) {
+            console.log(error);
+        }
+
         // set the state.
         let questions = [
             { ques: `Which is ${user} favourite smartphone brand?`, id: 0 },
@@ -151,11 +158,11 @@ class QuestionsForm extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
-                // console.log(response.data);
+                console.log(response.data);
                 if (response.data.getredirect) {
                     root = this.getRequest(response.data.getredirect);
                 }
-                else if(response.data.render === "share page"){
+                else if (response.data.render === "share page") {
                     this.props.getForm(response.data);
                 }
             })
@@ -205,30 +212,59 @@ class QuestionsForm extends Component {
         }
     }
 
+    componentWillMount() {
+        let id = window.location.href.split("/");
+        for (let i = 0; i < id.length; i++) {
+            if (id[i] === "questionsfrom") {
+                id = id[i + 1];
+                break;
+            }
+        }
+        if (id[id.length - 1] === "#") {
+            id = id.substring(0, id.length - 1);
+        }
+        let root = this;
+
+        axios.get('/user/form/'+id)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.getredirect) {
+                    root = this.getRequest(res.data.getredirect);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     render() {
         return (
-            <div className={styles.container}>
-                {
-                    this.state.questions.map((question, index) => {
-                        return (
-                            <Questions
-                                key={index}
-                                question={question}
-                                suggestions={this.state.suggestions}
-                                questionOnChange={this.questionOnChangeHandler}
-                                options={this.state.options[index]}
-                                onOptionChange={this.optionOnChangeHandler}
-                                onDelete={this.deleteOptionHandler}
-                                onSelect={this.suggestionSelectHandler}
-                                onAnswer={this.onAnswerHandler}
-                                addOption={this.addOptionHandler}
-                            />
-                        )
-                    })
-                }
+            this.state.user
+                ?
+                <div className={styles.container}>
+                    {
+                        this.state.questions.map((question, index) => {
+                            return (
+                                <Questions
+                                    key={index}
+                                    question={question}
+                                    suggestions={this.state.suggestions}
+                                    questionOnChange={this.questionOnChangeHandler}
+                                    options={this.state.options[index]}
+                                    onOptionChange={this.optionOnChangeHandler}
+                                    onDelete={this.deleteOptionHandler}
+                                    onSelect={this.suggestionSelectHandler}
+                                    onAnswer={this.onAnswerHandler}
+                                    addOption={this.addOptionHandler}
+                                />
+                            )
+                        })
+                    }
 
-                <div className={styles.submitButton} onClick={this.submitHandler}><span>Submit</span></div>
-            </div>
+                    <div className={styles.submitButton} onClick={this.submitHandler}><span>Submit</span></div>
+                </div>
+                :
+                null
         );
     }
 }

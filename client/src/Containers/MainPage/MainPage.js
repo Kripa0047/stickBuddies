@@ -16,9 +16,13 @@ class MainPage extends Component {
         user: '',
         link: ''
     }
+
     renderPage = (pageName) => {
+        if(pageName === "login"){
+            history.push('/');
+        }
         if(pageName === "form page"){
-            history.push('/questionsForm/'+this.state.user.user._id);
+            history.push('/questionsform/'+this.state.user.user._id);
         }
         if(pageName === "share page"){
             history.push('/dashboard/'+this.state.user.user._id);
@@ -54,8 +58,8 @@ class MainPage extends Component {
                     <Router history={history}>
                         {/* exact path="/props-through-component" component={() => <PropsPage title={`Props through component`} />} /> */}
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
-                        <Route exact path='/questionsForm/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
-                        <Route path='/answerForm' exact component={AnswerForm} />
+                        <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
+                        <Route path='/answerform' exact component={AnswerForm} />
                         <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} />} />
                         <Route path='/yourScore' exact component={YourScore} />
                     </Router>

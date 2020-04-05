@@ -57,11 +57,6 @@ class Dashboard extends Component {
                     </thead>
                     <tbody>
 
-                        {/* <tr>
-                            <td>Jill</td>
-                            <td>50</td>
-                        </tr> */}
-
                         {
                             this.props.user.invites.lenght !== 0
                                 ?

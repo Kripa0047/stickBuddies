@@ -70,7 +70,7 @@ class Login extends Component {
                         <label>Email</label>
                         <div className={styles.inputBox}>
                             <input onChange={(e) => { this.setState({ user: e.target.value }) }}
-                                className={styles.inputField} type="email" placeholder="friends@forever.com" />
+                                className={styles.inputField} type="Email" placeholder="friends@forever.com" />
                         </div>
                     </div>
                     <div className={styles.inputConatiner}>
