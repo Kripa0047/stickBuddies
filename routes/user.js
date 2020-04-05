@@ -69,7 +69,7 @@ router.get('/user/form/:id', (req, res) => {
                 } else {
                     // req.flash("error","please enter details");
                     res.json({
-                        getredirect: "/"
+                        render:"login"
                     });
                 }
             }
@@ -77,7 +77,7 @@ router.get('/user/form/:id', (req, res) => {
     } else {
         // res.redirect('/');
         res.json({
-            getredirect: "/"
+            render:"login"
         });
     }
 
@@ -92,16 +92,16 @@ router.post('/user/form/:id', (req, res) => {
                 res.send(err);
             } else {
                 if (fuser != null) {
-                    fuser.qa = req.body.qa;
-                    fuser.save();
-                    // res.redirect('/user/share/'+fuser._id);
-                    res.json({
-                        getredirect: "/user/share/" + fuser._id
-                    });
+                        fuser.qa = req.body.qa;
+                        fuser.save();
+                        // res.redirect('/user/share/'+fuser._id);
+                        res.json({
+                            getredirect: "/user/share/" + fuser._id
+                        });  
                 } else {
                     // res.redirect('/');
                     res.json({
-                        getredirect: "/"
+                        render:"login"
                     });
                 }
             }
@@ -110,7 +110,7 @@ router.post('/user/form/:id', (req, res) => {
     } else {
         // res.redirect('/')
         res.json({
-            getredirect: "/"
+            render:"login"
         });
     }
 })
@@ -126,29 +126,36 @@ router.get('/user/share/:id', (req, res) => {
             } else {
                 if (fuser != null) {
                     // console.log(fuser)
-                    Invite.find({ userid: req.params.id }, (err, finvites) => {
-                        if (err) {
-                            res.send(err);
-                        } else {
-                            res.json({
-                                render: "share page",
-                                user:fuser,
-                                invites:finvites
-                            })
-                            // res.render('share page')
-                        }
-                    })
+                    if(fuser.qa.length<1){
+                        res.json({
+                            getredirect:"/user/form/"+fuser._id
+                        })
+                    }else{
+                        Invite.find({ userid: req.params.id }, (err, finvites) => {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                res.json({
+                                    render: "share page",
+                                    user:fuser,
+                                    invites:finvites
+                                })
+                                // res.render('share page')
+                            }
+                        })
+                    }
+                    
                 } else {
                     // res.redirect('/');
                     res.json({ 
-                        getredirect:"/"
+                        render:"login"
                      });
                 }
             }
         })
     } else {
         //res.redirect('/');
-        res.json({ getredirect:"/" });
+        res.json({ render:"login" });
     }
 
 })
