@@ -5,7 +5,7 @@ var mongoose =require("mongoose");
 var userSchema =new mongoose.Schema({
     username:String,
     email: {type: String, unique: true, required: true},
-    qa:[{ques:String,ans:String,options:[]}],
+    qa:[{ques:String,ans:{answer:String,index:Number},options:[]}],
     sharelink:String
 
 
