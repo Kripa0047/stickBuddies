@@ -69,7 +69,7 @@ router.get('/user/form/:id', (req, res) => {
                 } else {
                     // req.flash("error","please enter details");
                     res.json({
-                        render:"home page"
+                        render:"login"
                     });
                 }
             }
@@ -77,7 +77,7 @@ router.get('/user/form/:id', (req, res) => {
     } else {
         // res.redirect('/');
         res.json({
-            render:"home page"
+            render:"login"
         });
     }
 
@@ -101,7 +101,7 @@ router.post('/user/form/:id', (req, res) => {
                 } else {
                     // res.redirect('/');
                     res.json({
-                        render:"home page"
+                        render:"login"
                     });
                 }
             }
@@ -110,7 +110,7 @@ router.post('/user/form/:id', (req, res) => {
     } else {
         // res.redirect('/')
         res.json({
-            render:"home page"
+            render:"login"
         });
     }
 })
@@ -148,14 +148,14 @@ router.get('/user/share/:id', (req, res) => {
                 } else {
                     // res.redirect('/');
                     res.json({ 
-                        render:"home page"
+                        render:"login"
                      });
                 }
             }
         })
     } else {
         //res.redirect('/');
-        res.json({ render:"home page" });
+        res.json({ render:"login" });
     }
 
 })
