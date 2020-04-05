@@ -60,7 +60,7 @@ class MainPage extends Component {
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
                         <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/answerform' exact component={AnswerForm} />
-                        <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} />} />
+                        <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/yourScore' exact component={YourScore} />
                     </Router>
                 </div>
