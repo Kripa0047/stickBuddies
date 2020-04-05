@@ -154,7 +154,7 @@ class QuestionsForm extends Component {
                     root = this.getRequest(response.data.getredirect);
                 }
                 else if(response.data.render === "share page"){
-                    this.props.getForm(response.data.invites);
+                    this.props.getForm(response.data);
                 }
             })
             .catch(error => {

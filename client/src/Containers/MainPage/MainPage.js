@@ -16,21 +16,31 @@ class MainPage extends Component {
         user: '',
         link: ''
     }
+    renderPage = (pageName) => {
+        if(pageName === "form page"){
+            history.push('/questionsForm/'+this.state.user);
+        }
+        if(pageName === "share page"){
+            history.push('/dashboard/'+this.state.user);
+        }
+    }
 
-    getUser = (user) => {
+    getUser = (data) => {
         // console.log(user);
+        let root = this;
         this.setState({
-            user
+            user: data.user
         }, function() {
-            history.push('/questionsForm/'+user);
+            root.renderPage(data.render);
         });
     }
 
-    getForm = (link) => {
+    getForm = (data) => {
+        let root = this;
         this.setState({
-            link
+            link: 'demo'
         }, function() {
-            history.push('/dashboard/'+this.state.user);
+            root.renderPage(data.render);
         })
     }
 

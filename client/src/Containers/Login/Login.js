@@ -12,11 +12,12 @@ class Login extends Component {
         let root = this;
         axios.get(url)
             .then(function (response) {
+                console.log(response.data);
                 if(response.data.getredirect){
-                    root.getredirect(response.data.getredirect)
+                    root.getRequest(response.data.getredirect)
                 }
-                else if(response.data.render === "form page"){
-                    this.props.getUser(response.data.user);
+                else if(response.data.render){
+                    root.props.getUser(response.data);
                 }
             })
             .catch(function (error) {
