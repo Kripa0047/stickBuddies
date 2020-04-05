@@ -57,6 +57,7 @@ router.get('/user/form/:id', (req, res) => {
                 if (fuser != null) {
                     console.log("present id")
                     if (fuser.qa.length<1) {
+                        console.log("it works")
                         // res.render('user/form',{id:fuser._id});
                         res.json({
                             render: "form page",
