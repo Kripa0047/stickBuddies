@@ -12,7 +12,7 @@ class Login extends Component {
         let root = this;
         axios.get(url)
             .then(function (response) {
-                console.log(response.data);
+                // console.log(response.data);
                 if(response.data.getredirect){
                     root.getRequest(response.data.getredirect)
                 }

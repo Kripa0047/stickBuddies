@@ -6,7 +6,7 @@ import instagramIcon from '../../asserts/icons/instagram-brands.svg';
 
 class Dashboard extends Component {
     state = {
-        link: "dummy/link",
+        link: this.props.user.user.sharelink,
         copyStatus: false
     }
 
@@ -25,9 +25,10 @@ class Dashboard extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
-                <div className={styles.headerName}>Kripa</div>
+                <div className={styles.headerName}>{this.props.user.user.username}</div>
                 <div className={styles.quizStatus}>Your Quiz is Ready!</div>
                 <div>Now share your quiz-link with your friends!</div>
                 <div>They will try to guess your answers & get a score out of 10.</div>
@@ -45,7 +46,7 @@ class Dashboard extends Component {
                     <div onClick={() => window.open("https://www.twitter.com", '_blank')} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" /> Set to Bio</div>
                 </div>
 
-                <div className={styles.scoreResultOf}>Scoreboard of Kripa</div>
+                <div className={styles.scoreResultOf}>Scoreboard of {this.props.user.user.username}</div>
 
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
@@ -56,15 +57,36 @@ class Dashboard extends Component {
                     </thead>
                     <tbody>
 
-                        <tr>
+                        {/* <tr>
                             <td>Jill</td>
                             <td>50</td>
-                        </tr>
+                        </tr> */}
+
+                        {
+                            this.props.user.invites.lenght !== 0
+                                ?
+                                this.props.user.invites.map((item) => {
+                                    return (
+                                        <tr>
+                                            <td>{item.friendname}</td>
+                                            <td>{item.score.type}</td>
+                                        </tr>
+                                    )
+                                })
+                                :
+                                null
+                        }
 
                     </tbody>
                 </table>
 
-                <div className={styles.noQuiz}>No one has given this quiz yet.</div>
+                {
+                    this.props.user.invites.lenght === 0
+                        ?
+                        <div className={styles.noQuiz}>No one has given this quiz yet.</div>
+                        :
+                        null
+                }
                 <div className={styles.createNew}>Delete and Create New Quiz</div>
 
             </div>

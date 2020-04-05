@@ -18,30 +18,32 @@ class MainPage extends Component {
     }
     renderPage = (pageName) => {
         if(pageName === "form page"){
-            history.push('/questionsForm/'+this.state.user);
+            history.push('/questionsForm/'+this.state.user.user._id);
         }
         if(pageName === "share page"){
-            history.push('/dashboard/'+this.state.user);
+            history.push('/dashboard/'+this.state.user.user._id);
         }
     }
 
     getUser = (data) => {
-        // console.log(user);
+        // console.log(data);
         let root = this;
         this.setState({
-            user: data.user
+            user: data
         }, function() {
             root.renderPage(data.render);
         });
     }
 
     getForm = (data) => {
+        // console.log(data);
         let root = this;
         this.setState({
-            link: 'demo'
+            user: data
         }, function() {
             root.renderPage(data.render);
         })
+        // console.log(data);
     }
 
     render() {
@@ -54,7 +56,7 @@ class MainPage extends Component {
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
                         <Route exact path='/questionsForm/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/answerForm' exact component={AnswerForm} />
-                        <Route path='/dashboard/:id' exact component={Dashboard} />
+                        <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} />} />
                         <Route path='/yourScore' exact component={YourScore} />
                     </Router>
                 </div>

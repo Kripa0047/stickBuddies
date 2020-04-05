@@ -14,7 +14,8 @@ class QuestionsForm extends Component {
     }
 
     componentDidMount() {
-        let user = this.props.user;
+        // console.log(this.props);
+        let user = this.props.user.user.username;
         // set the state.
         let questions = [
             { ques: `Which is ${user} favourite smartphone brand?`, id: 0 },
@@ -150,6 +151,7 @@ class QuestionsForm extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root = this.getRequest(response.data.getredirect);
                 }
@@ -171,7 +173,7 @@ class QuestionsForm extends Component {
         for (let i = 0; i < 10; i++) {
             if (answers[i].answer === null) {
                 alert("Please select an answer for Question " + (i + 1));
-                submit = false;
+                // submit = false;
                 break;
             }
         }
@@ -191,7 +193,7 @@ class QuestionsForm extends Component {
                 qa: arr
             }
             let root = this;
-            axios.post('/user/form/' + this.state.user, data)
+            axios.post('/user/form/' + this.props.user.user._id, data)
                 .then(res => {
                     if (res.data.getredirect) {
                         root = this.getRequest(res.data.getredirect);
