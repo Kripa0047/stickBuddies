@@ -14,11 +14,13 @@ router.use(bodyParser.json());
 
 // @route to post new user
 router.post('/user/new', (req, res) => {
+    console.log("inside")
     User.findOne({ email: req.body.email }, (err, fuser) => {
         if (err) {
             res.send(err);
         } else {
             if (fuser == null) {
+                console.log("mama")
                 const user = {
                     username: req.body.name,
                     email: req.body.email
@@ -36,6 +38,7 @@ router.post('/user/new', (req, res) => {
                 })
             } else {
 
+                console.log("found")
                 res.json({
                     getredirect: "/user/form/" + fuser._id
                 });
