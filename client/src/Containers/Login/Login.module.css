@@ -1,0 +1,55 @@
+.container  {
+    margin-top: 20px;
+    color: #ffffff;
+    background-color: #009eb0;
+    border-radius: 5px;
+    border: 1px solid #007582;
+}
+
+.header {
+    padding: 10px 0 20px 0;
+    font-size: 110%;
+    font-weight: 500;
+    border-bottom: 1px solid #007582;
+}
+
+.details    {
+    text-align: left;
+    padding: 20px;
+}
+
+.subHeader  {
+    font-size: 110%;
+    font-weight: 500;
+}
+
+.inputBox  {
+    margin: 10px 0;
+}
+
+.inputConatiner {
+    text-align: center;
+}
+
+.inputField {
+    width: 96%;
+    height: 30px;
+    font-size: 90%;
+    padding: 0 2%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+}
+
+.button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.button > span  {
+    background-color: #303030;
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-weight: 500;
+    cursor: pointer;
+}

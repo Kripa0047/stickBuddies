@@ -1,0 +1,123 @@
+.container  {
+    border-radius: 5px;
+    background-image: linear-gradient(#4DA0B0, #D39D38);
+    color: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.header {
+    text-align: center;
+    font-size: 120%;
+    font-weight: 500;
+}
+
+.questionField  {
+    margin-top: 10px;
+    margin-bottom: -4px;
+    width: 96%;
+    height: 50px;
+    padding: 10px 2%;
+    border-radius: 5px 5px 0 0;
+    font-size: 120%;
+    border: none;
+}
+
+.suggestionBox  {
+    background-color: #00000050;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.clickBox   {
+    padding: 20px 0;
+}
+
+.downArrow  {
+    transform: rotate(45deg);
+    display: inline-block;
+    border: solid #ffffff;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.suggestions    {
+    position: absolute;
+    width: 98%;
+    background-color: #c4c4c4;
+    top: 65px;
+    border-radius: 5px;
+    padding: 10px 1%;
+    display: none;
+}
+
+.suggestions > div {
+    margin: 5px 0;
+    color: #303030;
+}
+
+.displayYes {
+    display: block;
+}
+
+.optionsContainer   {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.option {
+    height: 50px;
+    margin: 10px 0;
+}
+
+.radioBox   {
+    width: 8%;
+    height: 100%;
+    display: inline-block;
+    background-color: #dedede;
+    text-align: center;
+    border-radius: 5px 0 0 5px;
+    vertical-align: middle;
+}
+
+.radioBox > input   {
+    margin-top: 20%;
+    height: 65%;
+    width: 65%;
+}
+
+.textField  {
+    display: inline-block;
+    height: 100%;
+    width: 88%;
+    vertical-align: middle;
+}
+
+.textField > textarea   {
+    width: 96%;
+    border: none;
+    height: 30px;
+    padding: 10px 2%;
+    font-size: 120%;
+    outline: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.cancel {
+    display: inline-block;
+    text-align: center;
+    width: 4%;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+
+.addOption  {
+    background-color: #00000050;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+}

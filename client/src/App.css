@@ -1,0 +1,29 @@
+body {
+  height: 100vh;
+  background-color: #e4e4e4;
+  width: 90%;
+  margin: auto;
+}
+
+.App {
+  text-align: center;
+}
+
+#restContent  {
+  display: none;
+}
+
+/* strictly for mobile devices */
+@media only screen and (min-width: 768px) {
+  #phoneContent {
+    display: none;
+  }
+
+  #restContent  {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -1,0 +1,81 @@
+.headerName {
+    font-size: 120%;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.quizStatus {
+    font-size: 200%;
+    font-weight: 600;
+    margin: 30px 0 20px 0;
+}
+
+.link   {
+    padding: 20px 0;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.copied {
+    color: #00000000;
+    font-size: 70%;
+    font-weight: 500;
+}
+
+.copyLink, .createNew   {
+    padding: 20px 0;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #12b5c7;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.col    {
+    display: inline-block;
+    width: 46%;
+    text-align: center;
+    margin: 10px 2%;
+    border-radius: 5px;
+    padding: 10px 0;
+    vertical-align: middle;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.icon   {
+    vertical-align: middle;
+}
+
+.scoreResultOf  {
+    font-size: 140%;
+    margin-top: 40px;
+    font-weight: 600;
+}
+
+.scoreTable {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.tableHead  {
+    background-color: #d1d1d150;
+}
+
+.tableHead > tr {
+    height: 40px;
+}
+
+.noQuiz {
+    margin-top: 10px;
+    padding: 10px 0;
+    border: 1px solid #454545;
+    border-radius: 20px;
+    color: #ff4747;
+}
+
+.createNew  {
+    margin-bottom: 20px;
+}
