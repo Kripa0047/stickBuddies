@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import styles from './QuestionsForm.module.css';
 // importing pages
 import Questions from '../../Components/Questions/Questions';
-import history from '../History/History';
 import axios from 'axios';
-import { response } from 'express';
 
 class QuestionsForm extends Component {
     state = {
@@ -184,7 +182,7 @@ class QuestionsForm extends Component {
             for (let i = 0; i < 10; i++) {
                 let val = {
                     ques: questions[i].ques,
-                    ans: answers[i].answer,
+                    answer: answers[i],
                     options: options[i].options
                 }
                 arr.push(val);
