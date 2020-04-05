@@ -40,7 +40,7 @@ class Login extends Component {
             axios.post('/user/new', data)
                 .then(res => {
                     if (res.data.getredirect) {
-                        root = this.getRequest(res.data.getredirect);
+                        root = axios.get(res.data.getredirect);
                     }
                 })
                 .catch(error => {
