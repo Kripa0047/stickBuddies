@@ -30,18 +30,14 @@ router.post('/user/new', (req, res) => {
                         nuser.sharelink = "http://gamestickman.herokuapp.com/invite/" + nuser._id;
                         nuser.save();
                         res.json({
-                            user: nuser,
-                            newU: true
+                            getredirect: "/user/form/" + nuser._id
                         });
                     }
                 })
             } else {
-                var status = false;
-                if (fuser.qa.length < 1)
-                    status = true;
+
                 res.json({
-                    user: fuser,
-                    newU: status
+                    getredirect: "/user/form/" + fuser._id
                 });
             }
         }
@@ -57,24 +53,32 @@ router.get('/user/form/:id', (req, res) => {
                 res.send(err);
             } else {
                 if (fuser != null) {
-                    if (fuser.qa.length < 1) {
+                    if (fuser.qa == []) {
                         // res.render('user/form',{id:fuser._id});
-                        res.json({ user: fuser });
+                        res.json({
+                            render: "form page",
+                            user: fuser
+                        });
                     } else {
-                        console.log("hi")
                         // res.redirect('/user/share/'+fuser._id);
-                        res.json({ user: fuser, msg_id: 1 });
+                        res.json({
+                            getredirect: "/user/share/" + fuser._id
+                        });
                     }
 
                 } else {
                     // req.flash("error","please enter details");
-                    res.json({ msg_id: 0 });
+                    res.json({
+                        getredirect: "/"
+                    });
                 }
             }
         })
     } else {
         // res.redirect('/');
-        res.json({ msg_id: 0 });
+        res.json({
+            getredirect: "/"
+        });
     }
 
 })
@@ -92,18 +96,22 @@ router.post('/user/form/:id', (req, res) => {
                     fuser.save();
                     // res.redirect('/user/share/'+fuser._id);
                     res.json({
-                        user: fuser
+                        getredirect: "/user/share/" + fuser._id
                     });
                 } else {
                     // res.redirect('/');
-                    res.json({ msg_id: 0 });
+                    res.json({
+                        getredirect: "/"
+                    });
                 }
             }
         })
 
     } else {
         // res.redirect('/')
-        res.json({ msg_id: 0 });
+        res.json({
+            getredirect: "/"
+        });
     }
 })
 
@@ -122,20 +130,25 @@ router.get('/user/share/:id', (req, res) => {
                         if (err) {
                             res.send(err);
                         } else {
-                            res.json({ invites: finvites, user: fuser })
+                            res.json({
+                                render: "share page",
+                                user:fuser,
+                                invites:finvites
+                            })
                             // res.render('share page')
                         }
                     })
                 } else {
                     // res.redirect('/');
-                    res.json({ msg_id: 0 });
+                    res.json({ 
+                        getredirect:"/"
+                     });
                 }
             }
         })
     } else {
         //res.redirect('/');
-        console.log("share")
-        res.json({ msg_id: 0 });
+        res.json({ getredirect:"/" });
     }
 
 })
@@ -152,7 +165,7 @@ router.post('/user/delete/:id', (req, res) => {
                     res.send(err);
                 } else {
                     // res.redirect('/user/form/'+fuser._id);
-                    res.json({ user: fuser })
+                    res.json({ getredirect:"/user/form/"+fuser._id })
                 }
             })
         }
@@ -166,7 +179,9 @@ router.post('/user/delete/invite/:inviteid/:uid', (req, res) => {
             res.send(err);
         } else {
             // res.redirect('/user/share/'+req.params.uid);
-            res.json({ userid: req.params.uid })
+            res.json({ 
+                getredirect:"/user/share/"+req.params.uid
+             })
         }
     })
 })
