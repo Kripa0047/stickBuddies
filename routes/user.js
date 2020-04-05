@@ -53,7 +53,7 @@ router.get('/user/form/:id', (req, res) => {
                 res.send(err);
             } else {
                 if (fuser != null) {
-                    if (fuser.qa.length>1) {
+                    if (fuser.qa.length<11) {
                         // res.render('user/form',{id:fuser._id});
                         res.json({
                             render: "form page",
