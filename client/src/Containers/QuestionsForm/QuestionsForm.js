@@ -3,6 +3,8 @@ import styles from './QuestionsForm.module.css';
 // importing pages
 import Questions from '../../Components/Questions/Questions';
 import history from '../History/History';
+import axios from 'axios';
+import { response } from 'express';
 
 class QuestionsForm extends Component {
     state = {
@@ -14,8 +16,7 @@ class QuestionsForm extends Component {
     }
 
     componentDidMount() {
-        // API Calls Will be made
-        let user = "Kripa";
+        let user = this.props.user;
         // set the state.
         let questions = [
             { ques: `Which is ${user} favourite smartphone brand?`, id: 0 },
@@ -57,16 +58,16 @@ class QuestionsForm extends Component {
         ];
 
         let answers = [
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
-            {index: null, answer: null},
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
+            { index: null, answer: null },
         ]
 
         this.setState({
@@ -90,8 +91,8 @@ class QuestionsForm extends Component {
         let options = [...this.state.options];
         options[id].options[index].option = newVal;
         let answers = [...this.state.answers];
-        if(answers.id !== null){
-            if(index === answers[id].index){
+        if (answers.id !== null) {
+            if (index === answers[id].index) {
                 answers[id].answer = newVal;
             }
         }
@@ -105,8 +106,8 @@ class QuestionsForm extends Component {
         let options = [...this.state.options];
         options[id].options.splice(index, 1);
         let answers = [...this.state.answers];
-        if(answers.id !== null){
-            if(index === answers[id].index){
+        if (answers.id !== null) {
+            if (index === answers[id].index) {
                 answers[id].answer = null;
                 answers[id].index = null;
             }
@@ -124,7 +125,7 @@ class QuestionsForm extends Component {
         questions[questionIndex].ques = newQuestion;
         this.setState({
             questions
-        });        
+        });
     }
 
     onAnswerHandler = (id, index) => {
@@ -147,24 +148,60 @@ class QuestionsForm extends Component {
         });
     }
 
+    getRequest = (url) => {
+        let root = this;
+        axios.get(url)
+            .then(response => {
+                if (response.data.getredirect) {
+                    root = this.getRequest(response.data.getredirect);
+                }
+                else if(response.data.render === "share page"){
+                    this.props.getForm(response.data.invites);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     submitHandler = () => {
         let submit = true;
-        // let questions = [...this.state.questions];
-        // let options = [...this.state.options];
+        let questions = [...this.state.questions];
+        let options = [...this.state.options];
         let answers = [...this.state.answers];
 
-        for(let i=0; i<10; i++){
-            if(answers[i].answer === null){
-                alert("Please select an answer for Question " + (i+1) );
+        for (let i = 0; i < 10; i++) {
+            if (answers[i].answer === null) {
+                alert("Please select an answer for Question " + (i + 1));
                 submit = false;
                 break;
-            }  
+            }
         }
 
-        if(submit){
-            console.log("submited");
-            history.push("/");
-            // API call will be made
+        if (submit) {
+            let arr = [];
+
+            for (let i = 0; i < 10; i++) {
+                let val = {
+                    ques: questions[i].ques,
+                    ans: answers[i].answer,
+                    options: options[i].options
+                }
+                arr.push(val);
+            }
+            let data = {
+                qa: arr
+            }
+            let root = this;
+            axios.post('/user/form/' + this.state.user, data)
+                .then(res => {
+                    if (res.data.getredirect) {
+                        root = this.getRequest(res.data.getredirect);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Login.module.css';
-import history from '../History/History';
+import axios from 'axios';
 
 class Login extends Component {
     state = {
@@ -8,14 +8,43 @@ class Login extends Component {
         name: ""
     }
 
+    getRequest = (url) => {
+        let root = this;
+        axios.get(url)
+            .then(function (response) {
+                if(response.data.getredirect){
+                    root.getredirect(response.data.getredirect)
+                }
+                else if(response.data.render === "form page"){
+                    this.props.getUser(response.data.user);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
     submitHandler = () => {
         let user = this.state.user;
         let name = this.state.name;
-        
-        if(user !== "" || name !== ""){
+
+        if (user !== "" && name !== "") {
+            // this.props.getUser(user);
             // API calls will be made here
-            history.push("/questionsForm");
-            console.log("User Details : ", user, " ", name);
+            let data = {
+                name: name,
+                email: user
+            }
+            let root = this;
+            axios.post('/user/new', data)
+                .then(res => {
+                    if (res.data.getredirect) {
+                        root = this.getRequest(res.data.getredirect);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
 
@@ -47,7 +76,7 @@ class Login extends Component {
                         <label>Name</label>
                         <div className={styles.inputBox}>
                             <input onChange={(e) => { this.setState({ name: e.target.value }) }}
-                            className={styles.inputField} type="text" placeholder="Alex" />
+                                className={styles.inputField} type="text" placeholder="Alex" />
                         </div>
                     </div>
                     <div className={styles.button}>

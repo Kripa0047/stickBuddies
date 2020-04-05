@@ -12,16 +12,39 @@ import YourScore from '../YourScore/YourScore';
 import history from '../History/History';
 
 class MainPage extends Component {
+    state = {
+        user: '',
+        link: ''
+    }
+
+    getUser = (user) => {
+        // console.log(user);
+        this.setState({
+            user
+        }, function() {
+            history.push('/questionsForm/'+user);
+        });
+    }
+
+    getForm = (link) => {
+        this.setState({
+            link
+        }, function() {
+            history.push('/dashboard/'+this.state.user);
+        })
+    }
+
     render() {
         return (
             <div>
                 <div id="phoneContent">
                     <Navbar />
                     <Router history={history}>
-                        <Route path='/' exact component={Login} />
-                        <Route path='/questionsForm' exact component={QuestionsForm} />
+                        {/* exact path="/props-through-component" component={() => <PropsPage title={`Props through component`} />} /> */}
+                        <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
+                        <Route exact path='/questionsForm/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/answerForm' exact component={AnswerForm} />
-                        <Route path='/dashboard' exact component={Dashboard} />
+                        <Route path='/dashboard/:id' exact component={Dashboard} />
                         <Route path='/yourScore' exact component={YourScore} />
                     </Router>
                 </div>
