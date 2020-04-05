@@ -11,46 +11,49 @@ dotenv.config();
 
 // @route to render invite share page
 router.get('/invite/:fid', (req, res) => {
-    console.log("meme")
     if (req.params.fid.match(/^[0-9a-fA-F]{24}$/)) {
         // Yes, it's a valid ObjectId, proceed with `findById` call.
         User.findOne({ _id: req.params.fid }, (err, fuser) => {
             if (err) {
                 res.send(err);
             } else {
-                //console.log("inside findone" + fuser)
 
                 if (fuser != null) {
                     if (fuser.qa == []) {
-                        // console.log("hello")
-                        req.flash("error", "no quiz now");
+                        // req.flash("error", "no quiz now");
                         // res.redirect('/');
-                        res.json({ msg_id: 0 });
+                        res.json({
+                            getredirect: "/"
+                        });
                     } else {
                         Invite.find({ userid: fuser._id }, (err, finvites) => {
                             if (err) {
                                 res.send(err);
                             } else {
                                 // res.render('/invite/new/'+fuser._id);
-                                res.json({ user: fuser, invites: finvites });
+                                res.json({
+                                    render:"invite page",
+                                    master: fuser,
+                                    invites: finvites
+                                });
                             }
                         })
 
                     }
 
                 } else {
-                    // console.log("not found");
                     req.flash("error", "no such game");
                     // res.redirect('/')
-                    res.json({ msg_id: 0 });
+                    res.json({ 
+                        getredirect:"/"
+                     });
                 }
             }
         })
     } else {
-        console.log("no game")
         req.flash("error", "no such game");
         // res.redirect('/')
-        res.json({ msg_id: 0 });
+        res.json({ getredirect:"/" });
     }
 
 })
@@ -80,14 +83,15 @@ router.post('/invite/new/:fid', (req, res) => {
                                 } else {
                                     if (fuser != null) {
                                         res.json({
-                                            curUser: nuser,
-                                            friendUser: fuser
+                                            getredirect:"/invite/form/"+nuser._id+"/"+fuser._id
                                         });
                                         //res.redirect('/invite/form/' + nuser._id + '/' + fuser._id);
                                     } else {
                                         req.flash("error", "no such invitation");
                                         // res.redirect('/user/'+fuser._id);
-                                        res.json({ user: nuser, msg_id: 1 });
+                                        res.json({ 
+                                            getredirect:"/user/form/"+nuser._id
+                                        });
                                     }
                                 }
                             })
@@ -95,7 +99,9 @@ router.post('/invite/new/:fid', (req, res) => {
                         } else {
                             req.flash("error", "no such invitation");
                             // res.redirect('/user/'+fuser._id);
-                            res.json({ user: nuser, msg_id: 1 });
+                            res.json({ 
+                                getredirect:"/user/form/"+nuser._id
+                            });
                         }
 
                     }
@@ -109,22 +115,25 @@ router.post('/invite/new/:fid', (req, res) => {
                         } else {
                             if (fuser != null) {
                                 res.json({
-                                    curUser: user,
-                                    friendUser: fuser
+                                    getredirect:"/invite/form/"+user._id+"/"+fuser._id
                                 });
-                                //res.redirect('/invite/form/' + nuser._id + '/' + fuser._id);
+                                //res.redirect('/invite/form/' + user._id + '/' + fuser._id);
                             } else {
-                                req.flash("error", "no such invitation");
-                                // res.redirect('/user/'+fuser._id);
-                                res.json({ user: user, msg_id: 1 });
+                                // req.flash("error", "no such invitation");
+                                // res.redirect('/user/'+user._id);
+                                res.json({ 
+                                    getredirect:"/user/form/"+user._id
+                                 });
                             }
                         }
                     })
 
                 } else {
                     req.flash("error", "no such invitation");
-                    // res.redirect('/user/'+fuser._id);
-                    res.json({ user: user, msg_id: 1 });
+                    // res.redirect('/user/'+user._id);
+                    res.json({ 
+                        getredirect:"/user/form/"+user._id
+                     });
                 }
 
 
@@ -136,16 +145,20 @@ router.post('/invite/new/:fid', (req, res) => {
 // @route to render invite ques-ans form
 router.get('/invite/form/:uid/:fid', (req, res) => {
     if (req.params.uid == req.params.fid) {
-        req.flash("error", "cannot answer your own quiz")
+        // req.flash("error", "cannot answer your own quiz")
         User.findOne({ _id: req.params.uid }, (err, fuser) => {
             if (err) {
                 res.send(err);
             }
             else {
                 if (fuser == null)
-                    res.json({ msg_id: 0 });
+                    res.json({ 
+                        getredirect:"/"
+                     });
                 else {
-                    res.json({ user: fuser, msg_id: 1 })
+                    res.json({ 
+                        getredirect:"/user/form/"+fuser._id
+                    })
 
                 }
             }
@@ -173,11 +186,13 @@ router.get('/invite/form/:uid/:fid', (req, res) => {
                                         } else {
                                             if (ffriend != null) {
                                                 // res.render('invite/form', { user: fuser, friend: ffriend });
-                                                res.json({ user: fuser, friend: ffriend })
+                                                res.json({ render:"invite form",user: fuser, master: ffriend })
                                             } else {
                                                 req.flash("error", "no such invite");
                                                 // res.redirect('/user/form/' + fuser._id);
-                                                res.json({ user: fuser, msg_id: 1 });
+                                                res.json({ 
+                                                    getredirect:"/user/form/"+fuser._id
+                                                 });
                                             }
                                         }
                                     })
@@ -185,20 +200,26 @@ router.get('/invite/form/:uid/:fid', (req, res) => {
                                 } else {
                                     req.flash("error", "no such account");
                                     // res.redirect('/');
-                                    res.json({ msg_id: 0 });
+                                    res.json({ 
+                                        getredirect:"/"
+                                    });
                                 }
 
                             }
                         })
                     } else {
                         // res.redirect('/invite/results/' + req.params.uid + "/" + req.params.fid + '/' + finvite._id);
-                        res.json({ uid: req.params.uid, fid: req.params.fid, iid: finvite, msg_id: 2 })
+                        res.json({ 
+                            getredirect:"/invite/results/"+req.params.uid+"/"+req.params.fid+"/"+finvite._id
+                        })
                     }
                 }
             })
         } else {
             // res.redirect('/');
-            res.json({ msg_id: 0 });
+            res.json({ 
+                getredirect:"/"
+             });
         }
 
 
@@ -253,9 +274,9 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                                 ninvite.friendtype = "Friendliest Freind";
                                             } else if (ninvite.score == 5) {
                                                 ninvite.friendtype = "Reliable Companion";
-                                            }else if (ninvite.score == 4) {
+                                            } else if (ninvite.score == 4) {
                                                 ninvite.friendtype = "Casual Friend";
-                                            } 
+                                            }
                                             else if (ninvite.score == 3) {
                                                 ninvite.friendtype = "Media Buddy";
                                             } else if (ninvite.score == 2) {
@@ -264,14 +285,12 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                                 friendtype = "More than a stranger";
                                             } else {
                                                 ninvite.friendtype = "Let's Catch up";
-                                            } 
+                                            }
                                             ninvite.save();
 
                                             // res.redirect('/invite/results/' + fuser._id + '/' + ffriend._id + '/' + ninvite._id);
-                                            //res.json({ uid: fuser._id, fid: ffriend._id, iid: ninvite._id })
                                             res.json({
-                                                iid: ninvite,
-                                                msg_id: 2
+                                                getredirect:"/invite/results/"+fuser._id+"/"+ffriend._id+"/"+ninvite._id
                                             });
                                         }
 
@@ -279,26 +298,34 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                 } else {
                                     req.flash("error", "no such invitation");
                                     // res.redirect('/user/form/' + fuser._id);
-                                    res.json({ user: fuser, msg_id: 1 });
+                                    res.json({ 
+                                        getredirect:"/user/form/"+fuser._id
+                                     });
                                 }
                             }
                         })
                     } else {
-                        req.flash("error", "no such invitation");
+                        // req.flash("error", "no such invitation");
                         // res.redirect('/user/form/' + fuser._id);
-                        req.json({ user: fuser, msg_id: 1 })
+                        req.json({ 
+                            getredirect:"/user/form/"+fuser._id
+                         })
                     }
 
                 } else {
                     req.flash('error', "no such account");
                     // res.redirect('/');
-                    res.json({ msg_id: 0 });
+                    res.json({ 
+                        getredirect:"/"
+                    });
                 }
             }
         })
     } else {
         // res.redirect('/');
-        res.json({ msg_id: 0 });
+        res.json({
+            getredirect:"/"
+        });
 
     }
 
@@ -329,42 +356,52 @@ router.get('/invite/results/:uid/:fid/:iid', (req, res) => {
                                                         res.send(err);
                                                     } else {
                                                         // res.render('invite/results', { invites: finvites, invite: finvite, user: fuser, friend: ffriend });
-                                                        res.json({ invite: finvite, invites: finvites, user: fuser, friend: ffriend });
+                                                        res.json({ render:"result page",invite: finvite, invites: finvites, user: fuser, master: ffriend });
                                                     }
 
                                                 })
 
                                             } else {
-                                                req.flash('error', "no such invite");
+                                                // req.flash('error', "no such invite");
                                                 // res.redirect('/invite/form/' + fuser._id + '/' + ffriend._id);
-                                                res.json({ uid: fuser._id, fid: ffriend._id, msg_id: 2 })
+                                                res.json({ 
+                                                    getredirect:"/invite/form/"+fuser._id+"/"+ffriend._id
+                                                 })
                                             }
                                         }
                                     })
                                 } else {
                                     req.flash("error", "no such invitation");
                                     // res.redirect('/user/form/' + fuser._id);
-                                    res.json({ user: fuser, msg_id: 1 });
+                                    res.json({ 
+                                        getredirect:"/user/form/"+fuser._id
+                                    });
                                 }
                             }
                         })
                     } else {
                         req.flash("error", "no such invitation");
                         // res.redirect('/user/form/' + fuser._id);
-                        res.json({ user: fuser, msg_id: 1 });
+                        res.json({ 
+                            getredirect:"/user/form/"+fuser._id
+                        });
                     }
 
                 } else {
                     req.flash('error', "no such account");
                     // res.redirect('/');
-                    res.json({ msg_id: 0 });
+                    res.json({ 
+                        getredirect:"/"
+                    });
                 }
             }
         })
     } else {
         req.flash('error', "no such account");
         // res.redirect('/');
-        res.json({ msg_id: 0 });
+        res.json({ 
+            getredirect:"/"
+         });
     }
 
 })
