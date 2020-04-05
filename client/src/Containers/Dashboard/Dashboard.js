@@ -6,7 +6,7 @@ import instagramIcon from '../../asserts/icons/instagram-brands.svg';
 
 class Dashboard extends Component {
     state = {
-        link: this.props.user.user.sharelink,
+        link: '',
         copyStatus: false
     }
 
@@ -22,6 +22,20 @@ class Dashboard extends Component {
         this.setState({
             copyStatus: true
         })
+    }
+
+    componentDidMount() {
+        let link = null;
+        try {
+            link = this.props.user.user.sharelink;
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        this.setState({
+            link
+        });
     }
 
     render() {

@@ -231,6 +231,9 @@ class QuestionsForm extends Component {
                 if (res.data.getredirect) {
                     root = this.getRequest(res.data.getredirect);
                 }
+                else if(res.data.render){
+                    this.props.getForm(res.data);
+                }
             })
             .catch(error => {
                 console.log(error);
