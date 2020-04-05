@@ -58,7 +58,7 @@ if(process.env.NODE_ENV === 'production') {
 //Mongo URI
 dotenv.config();
 // const mongoURI = "mongodb://localhost/stickman_game_project";
-const mongoURI = "mongodb+srv://"+process.env.MLAB_USER+":"+process.env.MLAB_PASS+"@cluster0-ki0wo.mongodb.net/gameBuddy_6?retryWrites=true&w=majority";
+const mongoURI = "mongodb+srv://"+process.env.MLAB_USER+":"+process.env.MLAB_PASS+"@cluster0-ki0wo.mongodb.net/gamebuddy_6?retryWrites=true&w=majority";
 //Mongo connection
 mongoose
     .connect(mongoURI, { 
