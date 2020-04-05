@@ -16,11 +16,38 @@ class QuestionsForm extends Component {
     componentDidMount() {
         // console.log(this.props);
         let user = null;
+        let root = this;
         try {
             user = this.props.user.user.username;
         }
         catch (error) {
             console.log(error);
+            let id = window.location.href.split("/");
+            let val;
+            for (let i = 0; i < id.length; i++) {
+                console.log(id[i]);
+                if (id[i] === 'questionsform') {
+                    val = id[i + 1];
+                    break;
+                }
+            }
+            if (val[val.length - 1] === "#") {
+                val = val.substring(0, val.length - 1);
+            }
+            console.log(val);
+            axios.get('/user/form/' + val)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.getredirect) {
+                        root = this.getRequest(res.data.getredirect);
+                    }
+                    else if (res.data.render) {
+                        this.props.getForm(res.data);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
 
         // set the state.
@@ -210,34 +237,6 @@ class QuestionsForm extends Component {
                     console.log(error);
                 });
         }
-    }
-
-    componentWillMount() {
-        let id = window.location.href.split("/");
-        for (let i = 0; i < id.length; i++) {
-            if (id[i] === "questionsfrom") {
-                id = id[i + 1];
-                break;
-            }
-        }
-        if (id[id.length - 1] === "#") {
-            id = id.substring(0, id.length - 1);
-        }
-        let root = this;
-
-        axios.get('/user/form/'+id)
-            .then(res => {
-                console.log(res.data);
-                if (res.data.getredirect) {
-                    root = this.getRequest(res.data.getredirect);
-                }
-                else if(res.data.render){
-                    this.props.getForm(res.data);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
     }
 
     render() {
