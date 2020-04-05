@@ -17,7 +17,6 @@ router.get('/invite/:fid', (req, res) => {
             if (err) {
                 res.send(err);
             } else {
-
                 if (fuser != null) {
                     if (fuser.qa == []) {
                         // req.flash("error", "no quiz now");
