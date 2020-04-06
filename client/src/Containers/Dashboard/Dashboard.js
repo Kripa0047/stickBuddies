@@ -144,22 +144,13 @@ class Dashboard extends Component {
                     <div onClick={this.textCopyHandler} className={styles.copyLink}>Copy Link</div>
 
                     <div>
-<<<<<<< HEAD
                         <div onClick={() => window.open("fb-messenger://share?link="+this.props.user.user.sharelink, '_blank')} className={styles.col} style={{ backgroundColor: "#00b54b" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Share Messenger</div>
-=======
-                        <div onClick={() => window.open("https://www.facebook.com", '_blank')} className={styles.col} style={{ backgroundColor: "#0084ff" }}><img className={styles.icon} src={messengerIcon} alt="icon" height="30" /> Share</div>
->>>>>>> 8cf8fdcf520ac9234bd3a6affda6362cb5daf231
                         <div onClick={() => window.open("whatsapp://send?text=%F0%9F%99%8B%E2%80%8D%E2%99%80 *Best Buddy Challenge 2020* %F0%9F%99%8B%E2%80%8D%E2%99%82%0A How much do you know about me? %E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9%0A"+this.props.user.user.sharelink)} className={styles.col} style={{ backgroundColor: "#00b54b" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Get Status</div>
                     </div>
 
                     <div>
-<<<<<<< HEAD
                         <div onClick={() => window.open("https://twitter.com/share?text=%F0%9F%99%8B%E2%80%8D%E2%99%80+%2ABest+Buddy+Challenge+2020%2A+%F0%9F%99%8B%E2%80%8D%E2%99%82%0A+How+much+do+you+know+about+me%3F+%E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9&url="+this.props.user.user.sharelink+"%3Futm_source%3Dshare%26utm_medium%3Dtwitter%26utm_campaign%3Dtwitter-shares")} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" />twitter</div>
                         <div onClick={() => window.open("https://www.snapchat.com/scan?attachmentUrl="+this.props.user.user.sharelink, '_blank')} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" /> snapchat</div>
-=======
-                        <div onClick={() => window.open("intent://instagram.com/?text=%F0%9F%99%8B%E2%80%8D%E2%99%80 *Best Buddy Challenge 2020* %F0%9F%99%8B%E2%80%8D%E2%99%82%0A How much do you know about me? %E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9%0Ahttps://buddymojo.com/match/9fDx/#Intent;package=com.instagram.android;scheme=https;end")} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" /> Share</div>
-                        <div onClick={() => window.open("https://www.twitter.com", '_blank')} className={styles.col} style={{ backgroundColor: "#00acee" }}><img className={styles.icon} src={twitterIcon} alt="icon" height="30" /> Set to Bio</div>
->>>>>>> 8cf8fdcf520ac9234bd3a6affda6362cb5daf231
                     </div>
 
                     <div className={styles.scoreResultOf}>Scoreboard of {this.props.user.user.username}</div>
