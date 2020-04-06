@@ -263,8 +263,8 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                         } else {
                                             ninvite.ans = req.body.answers;
                                             for (var i = 0; i < ffriend.qa.length; i++) {
-                                                ninvite.correctans.push(ffriend.qa[i].ans);
-                                                if (ffriend.qa[i].ans == req.body.answers[i]) {
+                                                ninvite.correctans.push(ffriend.qa[i].ans.answer);
+                                                if (ffriend.qa[i].ans.answer == req.body.answers[i]) {
                                                     ninvite.score = ninvite.score + 1;
                                                 }
                                             }
