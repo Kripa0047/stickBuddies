@@ -17,10 +17,11 @@ class AnswerForm extends Component {
     optionSelectHandler = (id, index) => {
         // console.log(id, index);
         let score = this.state.score;
+        let options = [...this.state.options];
         let answers = [...this.state.answers];
         let questionNumber = this.state.questionNumber;
         let givenAns = [...this.state.givenAns];
-        givenAns.push(answers[id].answer);
+        givenAns.push(options[id][index].option);
         document.getElementById("op" + id + index).checked = true;
         if (index === answers[id].index) {
             document.getElementById("ta" + id + index).setAttribute("style", "background-color: #6bff77");

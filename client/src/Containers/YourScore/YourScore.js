@@ -5,7 +5,8 @@ import axios from 'axios';
 class YourScore extends Component {
     state = {
         score: 5,
-        mastername: ""
+        mastername: "",
+        friendtype: ''
     }
 
     getRequest = (url) => {
@@ -26,12 +27,14 @@ class YourScore extends Component {
     }
 
     componentDidMount() {
-        console.log("Mup: ", this.props.data.user);
+        console.log("Mup: ", this.props.data);
         let mastername = null;
         let score = null;
+        let friendtype = '';
         try {
             mastername = this.props.data.master.username;
             score = this.props.data.invite.score;
+            friendtype = this.props.data.invite.score;
         }
         catch (error) {
             let root = this;
@@ -107,7 +110,7 @@ class YourScore extends Component {
                     <div className={styles.inviteLink} onClick={()=>{this.getRequest('/user/form/'+this.props.data.user._id)}}>Create Your Quiz</div>
                     <div className={styles.scoreResultOf}>Scoreboard of {this.state.mastername}</div>
                 </div>
-                <div>{this.props.data.invite.friendtype}</div>
+                {/* <div>{this.props.data.invite.friendtype}</div> */}
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
                         <tr>
