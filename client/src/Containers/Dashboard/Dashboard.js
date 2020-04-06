@@ -29,7 +29,7 @@ class Dashboard extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect);
                 }
@@ -38,7 +38,7 @@ class Dashboard extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -46,13 +46,13 @@ class Dashboard extends Component {
         let root = this;
         axios.post(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect);
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -63,11 +63,11 @@ class Dashboard extends Component {
             link = this.props.user.user.sharelink;
         }
         catch (error) {
-            console.log(error);
+            // console.log(error);
             let id = window.location.href.split("/");
             let val = '';
             for (let i = 0; i < id.length; i++) {
-                console.log(id[i]);
+                // console.log(id[i]);
                 if (id[i] === 'dashboard') {
                     val = id[i + 1];
                     break;
@@ -76,10 +76,10 @@ class Dashboard extends Component {
             if (val[val.length - 1] === "#") {
                 val = val.substring(0, val.length - 1);
             }
-            console.log(val);
+            // console.log(val);
             axios.get('/user/share/' + val)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
                     }
@@ -88,7 +88,7 @@ class Dashboard extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
 
@@ -106,12 +106,12 @@ class Dashboard extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             this.state.link
                 ?

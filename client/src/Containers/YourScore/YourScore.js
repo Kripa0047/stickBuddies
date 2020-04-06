@@ -13,7 +13,7 @@ class YourScore extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect);
                 }
@@ -22,12 +22,12 @@ class YourScore extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
     componentDidMount() {
-        console.log("Mup: ", this.props.data);
+        // console.log("Mup: ", this.props.data);
         let mastername = null;
         let score = null;
         let friendtype = '';
@@ -38,13 +38,13 @@ class YourScore extends Component {
         }
         catch (error) {
             let root = this;
-            console.log(error);
+            // console.log(error);
             let id = window.location.href.split("/");
             let val1;
             let val2;
             let val3;
             for (let i = 0; i < id.length; i++) {
-                console.log(id[i]);
+                // console.log(id[i]);
                 if (id[i] === 'yourScore') {
                     val1 = id[i + 1];
                     val2 = id[i + 2];
@@ -61,10 +61,10 @@ class YourScore extends Component {
             if (val3[val3.length - 1] === "#") {
                 val3 = val3.substring(0, val3.length - 1);
             }
-            console.log(val1);
+            // console.log(val1);
             axios.get('/invite/results/' + val1 + "/" + val2 + "/" + val3)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
                     }
@@ -73,7 +73,7 @@ class YourScore extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
 

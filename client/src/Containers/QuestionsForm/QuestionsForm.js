@@ -21,11 +21,11 @@ class QuestionsForm extends Component {
             user = this.props.user.user.username;
         }
         catch (error) {
-            console.log(error);
+            // console.log(error);
             let id = window.location.href.split("/");
             let val;
             for (let i = 0; i < id.length; i++) {
-                console.log(id[i]);
+                // console.log(id[i]);
                 if (id[i] === 'questionsform') {
                     val = id[i + 1];
                     break;
@@ -34,10 +34,10 @@ class QuestionsForm extends Component {
             if (val[val.length - 1] === "#") {
                 val = val.substring(0, val.length - 1);
             }
-            console.log(val);
+            // console.log(val);
             axios.get('/user/form/' + val)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
                     }
@@ -46,7 +46,7 @@ class QuestionsForm extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
 
@@ -185,7 +185,7 @@ class QuestionsForm extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect);
                 }
@@ -194,7 +194,7 @@ class QuestionsForm extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -226,7 +226,7 @@ class QuestionsForm extends Component {
             let data = {
                 qa: arr
             }
-            console.log("sub data: ", data);
+            // console.log("sub data: ", data);
             let root = this;
             axios.post('/user/form/' + this.props.user.user._id, data)
                 .then(res => {
@@ -235,7 +235,7 @@ class QuestionsForm extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
     }
