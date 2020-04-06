@@ -57,6 +57,7 @@
 .scoreTable {
     width: 100%;
     margin-top: 20px;
+    text-align: center;
 }
 
 .tableHead  {
@@ -73,4 +74,5 @@
     border: 1px solid #454545;
     border-radius: 20px;
     color: #ff4747;
+    text-align: center;
 }

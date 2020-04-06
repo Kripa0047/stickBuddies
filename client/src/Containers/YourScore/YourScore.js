@@ -107,6 +107,7 @@ class YourScore extends Component {
                     <div className={styles.inviteLink} onClick={()=>{this.getRequest('/user/form/'+this.props.data.user._id)}}>Create Your Quiz</div>
                     <div className={styles.scoreResultOf}>Scoreboard of {this.state.mastername}</div>
                 </div>
+                <div>{this.props.data.invite.friendtype}</div>
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
                         <tr>

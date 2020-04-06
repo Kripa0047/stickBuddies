@@ -115,12 +115,8 @@ class Invite extends Component {
                         <div className={styles.list}>
                             <ul>
                                 <li>Enter your Name</li>
-                                <li>Enter your Email</li>
-                                <li>Answer any 10 Questions about yourself.</li>
-                                <li>Your quiz-link will be ready.</li>
-                                <li>Share your quiz-link with your friends.</li>
-                                <li>Your friends will try to guess the right answers.</li>
-                                <li>Check the score of your friends at your quiz-link!</li>
+                                <li>Answer the questions about your friend. (Dont't cheat :p)</li>
+                                <li>Check your score at scoreboard.</li>
                             </ul>
                         </div>
                         <div className={styles.inputConatiner}>
@@ -140,42 +136,43 @@ class Invite extends Component {
                         <div className={styles.button}>
                             <span onClick={this.submitHandler}>Submit</span>
                         </div>
+
+                        <div>Scoreboard of {this.state.username}</div>
+                        <table className={styles.scoreTable}>
+                            <thead className={styles.tableHead}>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {
+                                    this.state.invites.length !== 0
+                                        ?
+                                        this.props.data.invites.map((item) => {
+                                            return (
+                                                <tr>
+                                                    <td>{item.friendname}</td>
+                                                    <td>{item.score.type}</td>
+                                                </tr>
+                                            )
+                                        })
+                                        :
+                                        null
+                                }
+
+                            </tbody>
+                        </table>
+
+                        {
+                            this.state.invites.length === 0
+                                ?
+                                <div className={styles.noQuiz}>No one has given this quiz yet.</div>
+                                :
+                                null
+                        }
                     </div>
-                    <div>Scoreboard of {this.state.username}</div>
-                    <table className={styles.scoreTable}>
-                        <thead className={styles.tableHead}>
-                            <tr>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {
-                                this.state.invites.length !== 0
-                                    ?
-                                    this.props.data.invites.map((item) => {
-                                        return (
-                                            <tr>
-                                                <td>{item.friendname}</td>
-                                                <td>{item.score.type}</td>
-                                            </tr>
-                                        )
-                                    })
-                                    :
-                                    null
-                            }
-
-                        </tbody>
-                    </table>
-
-                    {
-                        this.state.invites.length === 0
-                            ?
-                            <div className={styles.noQuiz}>No one has given this quiz yet.</div>
-                            :
-                            null
-                    }
                 </div>
                 :
                 <div>boom</div>
