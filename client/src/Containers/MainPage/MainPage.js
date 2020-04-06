@@ -31,7 +31,7 @@ class MainPage extends Component {
             history.push('/dashboard/'+this.state.id);
         }
         if(pageName === "invite page"){
-            history.push('/invite/');
+            history.push('/invite/'+this.state.inviteData.master._id);
         }
         
     }

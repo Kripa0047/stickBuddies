@@ -6,7 +6,7 @@ class Invite extends Component {
     state = {
         user: "",
         name: "",
-        userName: null
+        username: null
     }
 
     getRequest = (url) => {
@@ -51,6 +51,7 @@ class Invite extends Component {
     }
 
     componentWillMount() {
+        console.log("inite props ",this.props.data);
         let username = null;
         try {
             username = this.props.data.master.username;
@@ -69,13 +70,10 @@ class Invite extends Component {
                 val = val.substring(0, val.length - 1);
             }
             console.log("invite ", val);
-            axios.get('/user/share/' + val)
+            axios.get('/invite/' + val)
                 .then(res => {
-                    console.log(res.data);
-                    if (res.data.getredirect) {
-                        root.getRequest(res.data.getredirect);
-                    }
-                    else if (res.data.render) {
+                    console.log("invire : res :", res.data);
+                    if (res.data.render) {
                         root.props.inviteData(res.data);
                     }
                 })
@@ -92,7 +90,7 @@ class Invite extends Component {
 
     render() {
         return (
-            this.state.userName
+            this.state.username
                 ?
                 <div className={styles.container}>
                     <div className={styles.header}>StickBuddies - Best Buddy Challenge</div>
@@ -138,9 +136,9 @@ class Invite extends Component {
                         <tbody>
 
                             {
-                                this.props.user.invites.lenght !== 0
+                                this.props.data.invites.length !== 0
                                     ?
-                                    this.props.user.invites.map((item) => {
+                                    this.props.data.invites.map((item) => {
                                         return (
                                             <tr>
                                                 <td>{item.friendname}</td>
@@ -156,7 +154,7 @@ class Invite extends Component {
                     </table>
 
                     {
-                        this.props.user.invites.lenght === 0
+                        this.props.data.invites.length === 0
                             ?
                             <div className={styles.noQuiz}>No one has given this quiz yet.</div>
                             :
@@ -164,7 +162,7 @@ class Invite extends Component {
                     }
                 </div>
                 :
-                null
+                <div>boom</div>
         );
     }
 }

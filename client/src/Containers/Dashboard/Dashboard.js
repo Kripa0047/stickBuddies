@@ -132,7 +132,7 @@ class Dashboard extends Component {
                         <tbody>
 
                             {
-                                this.props.user.invites.lenght !== 0
+                                this.props.user.invites.length !== 0
                                     ?
                                     this.props.user.invites.map((item) => {
                                         return (
@@ -150,7 +150,7 @@ class Dashboard extends Component {
                     </table>
 
                     {
-                        this.props.user.invites.lenght === 0
+                        this.props.user.invites.length === 0
                             ?
                             <div className={styles.noQuiz}>No one has given this quiz yet.</div>
                             :
