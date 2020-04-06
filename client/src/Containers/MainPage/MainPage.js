@@ -37,6 +37,9 @@ class MainPage extends Component {
         if(pageName === "invite page"){
             history.push('/invite/'+this.state.inviteData.master._id);
         }
+        if(pageName === "result page"){
+            history.push('/yourScore/'+this.state.inviteData.user._id +"/"+this.state.inviteData.master._id+"/"+this.state.inviteData.invite._id);
+        }
         
     }
 
@@ -93,7 +96,7 @@ class MainPage extends Component {
                         <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
                         <Route exact path='/answerform/:id/:fid' component={() => <AnswerForm data={this.state.inviteData} getAns={this.ansData} />} />
                         <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} getForm={this.getForm} />} />
-                        <Route path='/yourScore' exact component={YourScore} />
+                        <Route path='/yourScore/:id/:fid/:iid' exact component={YourScore} />
                         <Route exact path='/invite/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />
                     </Router>
                 </div>

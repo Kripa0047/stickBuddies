@@ -49,7 +49,7 @@ class AnswerForm extends Component {
             // API call will be made
             let root = this;
             console.log("SUBMITED", givenAns);
-            axios.post('/invite/form'+this.props.data.user._id+"/"+this.props.data.master._id,{answers: givenAns})
+            axios.post('/invite/form/'+this.props.data.user._id+"/"+this.props.data.master._id,{answers: givenAns})
                 .then(response => {
                     console.log(response.data);
                     if (response.data.getredirect) {
