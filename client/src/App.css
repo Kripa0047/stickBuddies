@@ -3,6 +3,7 @@ body {
   background-color: #e4e4e4;
   width: 90%;
   margin: auto;
+  background-image: url('./asserts/image/background.jpg');
 }
 
 .App {
