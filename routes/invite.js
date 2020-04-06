@@ -73,7 +73,7 @@ router.post('/invite/new/:fid', (req, res) => {
                     if (err) {
                         res.send(err);
                     } else {
-                        nuser.sharelink = "http://gamestickman.herokuapp.com/invite/" + nuser._id;
+                        nuser.sharelink = "http://gamestickman.herokuapp.com/inviteform/" + nuser._id;
                         nuser.save();
                         if (req.params.fid.match(/^[0-9a-fA-F]{24}$/)) {
                             // Yes, it's a valid ObjectId, proceed with `findById` call.
