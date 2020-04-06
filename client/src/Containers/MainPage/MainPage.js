@@ -22,7 +22,7 @@ class MainPage extends Component {
     }
 
     renderPage = (pageName) => {
-        // console.log("PAge : ", pageName);
+        console.log("PAge : ", pageName);
         if(pageName === "login"){
             history.push('/');
         }
@@ -68,11 +68,11 @@ class MainPage extends Component {
     }
 
     inviteData = (data) => {
-        // console.log("mainPage", data);
+        console.log("mainPage", data);
         let root = this;
         this.setState({
             inviteData: data,
-            id: data.user._id
+            id: data.master._id
         }, function() {
             root.renderPage(data.render);
         })
