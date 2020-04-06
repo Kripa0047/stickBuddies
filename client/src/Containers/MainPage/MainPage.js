@@ -8,7 +8,7 @@ import QuestionsForm from '../QuestionsForm/QuestionsForm';
 import AnswerForm from '../AnswerForm/AnswerForm';
 import Dashboard from '../Dashboard/Dashboard';
 import YourScore from '../YourScore/YourScore';
-// import NotFoundPage from '../../Components/NotFound/NotFound';
+import Logo from '../../asserts/logo/mainLogo.png';
 import Invite from '../Invite/Invite';
 // history
 import history from '../History/History';
@@ -114,7 +114,10 @@ class MainPage extends Component {
                         <Route exact path='/inviteform/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />
                     </Router>
                 </div>
-                <div id="restContent">Oppsee, only for mobile devices!!!</div>
+                <div id="restContent">
+                    <img src={Logo} alt="logo" style={{width:"40%"}} />
+                    <div>Only for mobile devices!!!</div>
+                </div>
             </div>
         );
     }

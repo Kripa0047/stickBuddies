@@ -65,7 +65,7 @@ class Dashboard extends Component {
     componentDidMount() {
         let link = null;
         let root = this;
-        console.log(this.props);
+        // console.log(this.props);
         try {
             link = this.props.user.user.sharelink;
         }
