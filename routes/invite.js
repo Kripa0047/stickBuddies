@@ -12,6 +12,7 @@ dotenv.config();
 // @route to render invite share page
 router.get('/invite/:fid', (req, res) => {
     if (req.params.fid.match(/^[0-9a-fA-F]{24}$/)) {
+        console.log("valid")
         // Yes, it's a valid ObjectId, proceed with `findById` call.
         User.findOne({ _id: req.params.fid }, (err, fuser) => {
             if (err) {
@@ -260,10 +261,10 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                             res.send(err)
 
                                         } else {
-                                            ninvite.ans = req.body;
+                                            ninvite.ans = req.body.answers;
                                             for (var i = 0; i < ffriend.qa.length; i++) {
                                                 ninvite.correctans.push(ffriend.qa[i].ans);
-                                                if (ffriend.qa[i].ans == req.body[i]) {
+                                                if (ffriend.qa[i].ans == req.body.answers[i]) {
                                                     ninvite.score = ninvite.score + 1;
                                                 }
                                             }
