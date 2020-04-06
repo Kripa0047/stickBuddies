@@ -33,7 +33,7 @@ class Dashboard extends Component {
                 if (response.data.getredirect) {
                     root = this.getRequest(response.data.getredirect);
                 }
-                else if (response.data.render === "share page") {
+                else if (response.data.render) {
                     this.props.getForm(response.data);
                 }
             })
@@ -51,7 +51,7 @@ class Dashboard extends Component {
         catch (error) {
             console.log(error);
             let id = window.location.href.split("/");
-            let val;
+            let val='';
             for (let i = 0; i < id.length; i++) {
                 console.log(id[i]);
                 if (id[i] === 'dashboard') {
@@ -67,10 +67,10 @@ class Dashboard extends Component {
                 .then(res => {
                     console.log(res.data);
                     if (res.data.getredirect) {
-                        root = this.getRequest(res.data.getredirect);
+                        root.getRequest(res.data.getredirect);
                     }
                     else if (res.data.render) {
-                        this.props.getForm(res.data);
+                        root.props.getForm(res.data);
                     }
                 })
                 .catch(error => {
@@ -81,6 +81,19 @@ class Dashboard extends Component {
         this.setState({
             link
         });
+    }
+
+    onFormDelete = () => {
+        let root = this;
+        axios.post('/user/delete/'+ this.props.user.user._id )
+            .then(res => {
+                if (res.data.getredirect) {
+                    root.getRequest(res.data.getredirect);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     render() {
@@ -143,7 +156,7 @@ class Dashboard extends Component {
                             :
                             null
                     }
-                    <div className={styles.createNew}>Delete and Create New Quiz</div>
+                    <div className={styles.createNew} onClick={this.onFormDelete}>Delete and Create New Quiz</div>
 
                 </div>
                 :

@@ -189,7 +189,7 @@ class QuestionsForm extends Component {
                 if (response.data.getredirect) {
                     root = this.getRequest(response.data.getredirect);
                 }
-                else if (response.data.render === "share page") {
+                else if (response.data.render) {
                     this.props.getForm(response.data);
                 }
             })
