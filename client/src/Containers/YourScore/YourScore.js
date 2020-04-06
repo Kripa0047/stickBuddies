@@ -88,7 +88,7 @@ class YourScore extends Component {
         return (
             <div>
                 <div>
-                    <div className={styles.resultQuiz}>Excellent, you have scored 0 in the quiz about {this.state.mastername}</div>
+                    <div className={styles.resultQuiz}>Excellent, you have scored {this.state.score} in the quiz about {this.state.mastername}</div>
                     {/* <div className="resultQuiz"></div> */}
 
                     <div className={styles.meterContainer}>
