@@ -17,11 +17,12 @@ class MainPage extends Component {
     state = {
         user: '',
         link: '',
-        inviteData: ''
+        inviteData: '',
+        id: ''
     }
 
     renderPage = (pageName) => {
-        console.log("PAge : ", pageName);
+        // console.log("PAge : ", pageName);
         if(pageName === "login"){
             history.push('/');
         }
@@ -35,7 +36,7 @@ class MainPage extends Component {
             history.push('/answerform/'+ this.state.inviteData.user._id +"/"+this.state.inviteData.master._id);
         }
         if(pageName === "invite page"){
-            history.push('/invite/'+this.state.inviteData.master._id);
+            history.push('/inviteform/'+this.state.inviteData.master._id);
         }
         if(pageName === "result page"){
             history.push('/yourScore/'+this.state.inviteData.user._id +"/"+this.state.inviteData.master._id+"/"+this.state.inviteData.invite._id);
@@ -59,6 +60,7 @@ class MainPage extends Component {
         let root = this;
         this.setState({
             user: data,
+            id: data.user._id
         }, function() {
             root.renderPage(data.render);
         })
@@ -66,17 +68,18 @@ class MainPage extends Component {
     }
 
     inviteData = (data) => {
-        console.log("mainPage", data);
+        // console.log("mainPage", data);
         let root = this;
         this.setState({
-            inviteData: data
+            inviteData: data,
+            id: data.user._id
         }, function() {
             root.renderPage(data.render);
         })
     }
 
     ansData = (data) => {
-        console.log("inv dat: ", this.state.inviteData);
+        // console.log("inv dat: ", this.state.inviteData);
         let root = this;
         this.setState({
             inviteData: data
@@ -108,7 +111,7 @@ class MainPage extends Component {
                         <Route exact path='/answerform/:id/:fid' component={() => <AnswerForm data={this.state.inviteData} getAns={this.ansData} />} />
                         <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} getForm={this.getForm} />} />
                         <Route exact path='/yourScore/:id/:fid/:iid' component={() => < YourScore data={this.state.inviteData} getScore={this.scoreData} />} />
-                        <Route exact path='/invite/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />
+                        <Route exact path='/inviteform/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />
                     </Router>
                 </div>
                 <div id="restContent">Oppsee, only for mobile devices!!!</div>

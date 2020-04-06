@@ -14,7 +14,7 @@ class Invite extends Component {
         let root = this;
         axios.get(url)
             .then(function (response) {
-                console.log("my data res ", response.data);
+                // console.log("my data res ", response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect)
                 }
@@ -23,7 +23,7 @@ class Invite extends Component {
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             })
     }
 
@@ -41,7 +41,7 @@ class Invite extends Component {
             let root = this;
             axios.post('/invite/new/' + this.props.data.master._id, data)
                 .then(res => {
-                    console.log("my res: ", res.data);
+                    // console.log("my res: ", res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
                     }
@@ -50,13 +50,13 @@ class Invite extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
     }
 
     componentDidMount() {
-        console.log("inite props ", this.props.data);
+        // console.log("inite props ", this.props.data);
         let username = null;
         let root = this;
         let invites = [];
@@ -67,7 +67,7 @@ class Invite extends Component {
         catch (error) {
 
             if (root.props.data.render === "invite form") {
-                console.log("nothind");
+                // console.log("nothind");
             }
 
             else {
@@ -75,7 +75,7 @@ class Invite extends Component {
                 let id = window.location.href.split("/");
                 let val = '';
                 for (let i = 0; i < id.length; i++) {
-                    if (id[i] === 'invite') {
+                    if (id[i] === 'inviteform') {
                         val = id[i + 1];
                         break;
                     }
@@ -83,16 +83,16 @@ class Invite extends Component {
                 if (val[val.length - 1] === "#") {
                     val = val.substring(0, val.length - 1);
                 }
-                console.log("invite ", val);
+                // console.log("invite ", val);
                 axios.get('/invite/' + val)
                     .then(res => {
-                        console.log("invire : res :", res.data);
+                        // console.log("invire : res :", res.data);
                         if (res.data.render) {
                             root.props.inviteDataF(res.data);
                         }
                     })
                     .catch(error => {
-                        console.log(error);
+                        // console.log(error);
                     });
             }
         }

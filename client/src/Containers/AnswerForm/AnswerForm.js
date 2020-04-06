@@ -39,7 +39,7 @@ class AnswerForm extends Component {
                 document.getElementById("ta" + id + answers[id].index).removeAttribute("style");
             }
             catch{
-                console.log("double");
+                // console.log("double");
             };
             if (questionNumber < 9) {
                 questionNumber++;
@@ -54,10 +54,10 @@ class AnswerForm extends Component {
         if (questionNumber === 9) {
             // API call will be made
             let root = this;
-            console.log("SUBMITED", givenAns);
+            // console.log("SUBMITED", givenAns);
             axios.post('/invite/form/' + this.props.data.user._id + "/" + this.props.data.master._id, { answers: givenAns })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     if (response.data.getredirect) {
                         root.getRequest(response.data.getredirect);
                     }
@@ -66,7 +66,7 @@ class AnswerForm extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
     }
@@ -75,7 +75,7 @@ class AnswerForm extends Component {
         let root = this;
         axios.get(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect);
                 }
@@ -84,7 +84,7 @@ class AnswerForm extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -103,12 +103,12 @@ class AnswerForm extends Component {
         }
         catch (error) {
             let root = this;
-            console.log(error);
+            // console.log(error);
             let id = window.location.href.split("/");
             let val1;
             let val2;
             for (let i = 0; i < id.length; i++) {
-                console.log(id[i]);
+                // console.log(id[i]);
                 if (id[i] === 'answerform') {
                     val1 = id[i + 1];
                     val2 = id[i + 2];
@@ -121,10 +121,10 @@ class AnswerForm extends Component {
             if (val2[val2.length - 1] === "#") {
                 val2 = val2.substring(0, val2.length - 1);
             }
-            console.log(val1);
+            // console.log(val1);
             axios.get('/invite/form/' + val1 + "/" + val2)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
                     }
@@ -133,11 +133,11 @@ class AnswerForm extends Component {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
         }
 
-        console.log("myq : ", questions, options, answers);
+        // console.log("myq : ", questions, options, answers);
 
         this.setState({
             username,
@@ -148,7 +148,7 @@ class AnswerForm extends Component {
     }
 
     render() {
-        console.log("ans: ", this.props);
+        // console.log("ans: ", this.props);
         let questionToRender = null;
         if (this.state.questions.length !== 0) {
             questionToRender = (
