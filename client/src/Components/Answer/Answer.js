@@ -16,7 +16,7 @@ const answer = (props) => {
                                 <span className={styles.radioBox}><input type="radio" id={"op" + props.index + index} /></span>
                                 <div className={styles.textField}>
                                     <textarea id={"ta" + props.index + index} type="text" placeholder="Option!!" readOnly={true} value={option.option}
-                                        style={props.selectedAns ? props.correctAns === option.option ? { backgroundColor: "green" } : null : null}
+                                        style={props.selectedAns ? props.correctAns === option.option ? { backgroundColor: "#36aa00" } : null : null}
                                         className={props.selectedAns ? props.selectedAns === option.option ? styles.bgRed : null : null}
                                     />
                                 </div>
