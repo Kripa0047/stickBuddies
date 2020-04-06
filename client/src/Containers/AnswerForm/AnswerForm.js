@@ -96,6 +96,7 @@ class AnswerForm extends Component {
     }
 
     render() {
+        console.log("ans: ", this.props);
         let questionToRender = null;
         if (this.state.questions.length !== 0) {
             questionToRender = (

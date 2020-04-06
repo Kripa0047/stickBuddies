@@ -21,6 +21,7 @@ class MainPage extends Component {
     }
 
     renderPage = (pageName) => {
+        console.log("PAge : ", pageName);
         if(pageName === "login"){
             history.push('/');
         }
@@ -29,6 +30,9 @@ class MainPage extends Component {
         }
         if(pageName === "share page"){
             history.push('/dashboard/'+this.state.id);
+        }
+        if(pageName === "invite form"){
+            history.push('/answerform/'+this.state.inviteData.master._id);
         }
         if(pageName === "invite page"){
             history.push('/invite/'+this.state.inviteData.master._id);
@@ -59,6 +63,7 @@ class MainPage extends Component {
     }
 
     inviteData = (data) => {
+        console.log("mainPage", data);
         let root = this;
         this.setState({
             inviteData: data
@@ -76,10 +81,10 @@ class MainPage extends Component {
                         {/* exact path="/props-through-component" component={() => <PropsPage title={`Props through component`} />} /> */}
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
                         <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
-                        <Route path='/answerform' exact component={AnswerForm} />
+                        <Route exact path='/answerform/:id' component={() => <AnswerForm data={this.state.inviteData} />} />
                         <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/yourScore' exact component={YourScore} />
-                        <Route exact path='/invite/:fid'  component={() => <Invite inviteData={this.inviteData} data={this.state.inviteData} />} />
+                        <Route exact path='/invite/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />
                     </Router>
                 </div>
                 <div id="restContent">Oppsee, only for mobile devices!!!</div>

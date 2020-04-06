@@ -6,19 +6,20 @@ class Invite extends Component {
     state = {
         user: "",
         name: "",
-        username: null
+        username: null,
+        invites: []
     }
 
     getRequest = (url) => {
         let root = this;
         axios.get(url)
             .then(function (response) {
-                // console.log(response.data);
+                console.log("my data res ", response.data);
                 if (response.data.getredirect) {
                     root.getRequest(response.data.getredirect)
                 }
                 else if (response.data.render) {
-                    root.props.getUser(response.data);
+                    root.props.inviteDataF(response.data);
                 }
             })
             .catch(function (error) {
@@ -38,10 +39,14 @@ class Invite extends Component {
                 email: user
             }
             let root = this;
-            axios.post('/invite/new'+this.props.data.master._id, data)
+            axios.post('/invite/new/' + this.props.data.master._id, data)
                 .then(res => {
+                    console.log("my res: ", res.data);
                     if (res.data.getredirect) {
                         root.getRequest(res.data.getredirect);
+                    }
+                    else if (res.data.render) {
+                        root.props.inviteDataF(res.data);
                     }
                 })
                 .catch(error => {
@@ -50,40 +55,51 @@ class Invite extends Component {
         }
     }
 
-    componentWillMount() {
-        console.log("inite props ",this.props.data);
+    componentDidMount() {
+        console.log("inite props ", this.props.data);
         let username = null;
+        let root = this;
+        let invites = [];
         try {
             username = this.props.data.master.username;
+            invites = [...this.props.data.invites];
         }
-        catch(error) {
-            let root = this;
-            let id = window.location.href.split("/");
-            let val = '';
-            for (let i = 0; i < id.length; i++) {
-                if (id[i] === 'invite') {
-                    val = id[i + 1];
-                    break;
-                }
+        catch (error) {
+
+            if (root.props.data.render === "invite form") {
+                console.log("nothind");
             }
-            if (val[val.length - 1] === "#") {
-                val = val.substring(0, val.length - 1);
-            }
-            console.log("invite ", val);
-            axios.get('/invite/' + val)
-                .then(res => {
-                    console.log("invire : res :", res.data);
-                    if (res.data.render) {
-                        root.props.inviteData(res.data);
+
+            else {
+
+                let id = window.location.href.split("/");
+                let val = '';
+                for (let i = 0; i < id.length; i++) {
+                    if (id[i] === 'invite') {
+                        val = id[i + 1];
+                        break;
                     }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                }
+                if (val[val.length - 1] === "#") {
+                    val = val.substring(0, val.length - 1);
+                }
+                console.log("invite ", val);
+                axios.get('/invite/' + val)
+                    .then(res => {
+                        console.log("invire : res :", res.data);
+                        if (res.data.render) {
+                            root.props.inviteDataF(res.data);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
         }
 
         this.setState({
-            username
+            username,
+            invites
         });
 
     }
@@ -136,7 +152,7 @@ class Invite extends Component {
                         <tbody>
 
                             {
-                                this.props.data.invites.length !== 0
+                                this.state.invites.length !== 0
                                     ?
                                     this.props.data.invites.map((item) => {
                                         return (
@@ -154,7 +170,7 @@ class Invite extends Component {
                     </table>
 
                     {
-                        this.props.data.invites.length === 0
+                        this.state.invites.length === 0
                             ?
                             <div className={styles.noQuiz}>No one has given this quiz yet.</div>
                             :
