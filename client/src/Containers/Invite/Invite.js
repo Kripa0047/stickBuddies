@@ -136,7 +136,7 @@ class Invite extends Component {
                             <span onClick={this.submitHandler}>Submit</span>
                         </div>
 
-                        <div>Scoreboard of {this.state.username}</div>
+                        <div className={styles.scoreOf}>Scoreboard of {this.state.username}</div>
                         <table className={styles.scoreTable}>
                             <thead className={styles.tableHead}>
                                 <tr>
@@ -153,7 +153,7 @@ class Invite extends Component {
                                             return (
                                                 <tr>
                                                     <td>{item.friendname}</td>
-                                                    <td>{item.score}</td>
+                                                    <td>{item.score}/10</td>
                                                 </tr>
                                             )
                                         })

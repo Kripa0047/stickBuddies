@@ -3,12 +3,17 @@ import styles from './Dashboard.module.css';
 // importing icons
 import whatsAppIcon from '../../asserts/icons/whatsapp-brands.svg';
 import instagramIcon from '../../asserts/icons/instagram-brands.svg';
+import messengerIcon from '../../asserts/icons/facebook-messenger-brands.svg';
+import twitterIcon from '../../asserts/icons/twitter-brands.svg';
 import axios from 'axios';
+import Answers from '../../Components/Answer/Answer';
 
 class Dashboard extends Component {
     state = {
         link: '',
-        copyStatus: false
+        copyStatus: false,
+        selectAns: [],
+        correctAns: []
     }
 
     textCopyHandler = () => {
@@ -59,6 +64,7 @@ class Dashboard extends Component {
     componentDidMount() {
         let link = null;
         let root = this;
+        console.log(this.props);
         try {
             link = this.props.user.user.sharelink;
         }
@@ -110,6 +116,19 @@ class Dashboard extends Component {
             });
     }
 
+    showResult  = (index) =>{
+        // console.log(index);
+        let selectAns = [...this.props.user.invites[index].ans];
+        let correctAns = [...this.props.user.invites[index].correctans];
+        // console.log(selectAns, correctAns);
+        this.setState({
+            selectAns,
+            correctAns
+        },function(){
+            document.getElementById("popup").style.display = "block";
+        });
+    }
+
     render() {
         // console.log(this.props);
         return (
@@ -125,13 +144,13 @@ class Dashboard extends Component {
                     <div onClick={this.textCopyHandler} className={styles.copyLink}>Copy Link</div>
 
                     <div>
-                        <div onClick={() => window.open("https://www.facebook.com", '_blank')} className={styles.col} style={{ backgroundColor: "#00b54b" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Share</div>
+                        <div onClick={() => window.open("https://www.facebook.com", '_blank')} className={styles.col} style={{ backgroundColor: "#0d5cdb" }}><img className={styles.icon} src={messengerIcon} alt="icon" height="30" /> facebook</div>
                         <div onClick={() => window.open("whatsapp://send?text=%F0%9F%99%8B%E2%80%8D%E2%99%80 *Best Buddy Challenge 2020* %F0%9F%99%8B%E2%80%8D%E2%99%82%0A How much do you know about me? %E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9%0Ahttps://buddymojo.com/match/9fDx")} className={styles.col} style={{ backgroundColor: "#00b54b" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Get Status</div>
                     </div>
 
                     <div>
                         <div onClick={() => window.open("intent://instagram.com/?text=%F0%9F%99%8B%E2%80%8D%E2%99%80 *Best Buddy Challenge 2020* %F0%9F%99%8B%E2%80%8D%E2%99%82%0A How much do you know about me? %E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9%0Ahttps://buddymojo.com/match/9fDx/#Intent;package=com.instagram.android;scheme=https;end")} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" /> Share</div>
-                        <div onClick={() => window.open("https://www.twitter.com", '_blank')} className={styles.col} style={{ backgroundImage: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" /> Set to Bio</div>
+                        <div onClick={() => window.open("https://www.twitter.com", '_blank')} className={styles.col} style={{ backgroundColor: "#00acee" }}><img className={styles.icon} src={twitterIcon} alt="icon" height="30" /> Set to Bio</div>
                     </div>
 
                     <div className={styles.scoreResultOf}>Scoreboard of {this.props.user.user.username}</div>
@@ -141,6 +160,7 @@ class Dashboard extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Score</th>
+                                <th>View</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -149,11 +169,12 @@ class Dashboard extends Component {
                             {
                                 this.props.user.invites.length !== 0
                                     ?
-                                    this.props.user.invites.map((item) => {
+                                    this.props.user.invites.map((item, index) => {
                                         return (
-                                            <tr>
+                                            <tr key={index}>
                                                 <td>{item.friendname}</td>
                                                 <td>{item.score}</td>
+                                                <td onClick={()=>this.showResult(index)}>See</td>
                                                 <td onClick={() => this.postRequest('/user/delete/invite/'+item._id+"/"+this.props.user.user._id)}>X</td>
                                             </tr>
                                         )
@@ -173,6 +194,26 @@ class Dashboard extends Component {
                             null
                     }
                     <div className={styles.createNew} onClick={this.onFormDelete}>Delete and Create New Quiz</div>
+                    
+                    {/* popup */}
+                    <div className={styles.popupConatiner} id="popup">
+                    <div onClick={()=>document.getElementById("popup").style.display = "none"} className={styles.exitPopup}>Cancel</div>
+                        {
+                            this.props.user.user.qa.map((question, index)=>{
+                                return(
+                                    <Answers
+                                        key={index}
+                                        index={index}
+                                        question={question.ques}
+                                        options={question.options}
+                                        selectedAns={this.state.selectAns[index]}
+                                        correctAns={this.state.correctAns[index]}
+                                    />
+                                )
+                            })
+                        }
+                        <div onClick={()=>document.getElementById("popup").style.display = "none"} className={styles.exitPopup}>Exit</div>
+                    </div>
 
                 </div>
                 :
