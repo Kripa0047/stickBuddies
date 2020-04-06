@@ -141,7 +141,7 @@ class Invite extends Component {
                             <span onClick={this.submitHandler}>Submit</span>
                         </div>
                     </div>
-
+                    <div>Scoreboard of {this.state.username}</div>
                     <table className={styles.scoreTable}>
                         <thead className={styles.tableHead}>
                             <tr>

@@ -31,10 +31,24 @@ class Dashboard extends Component {
             .then(response => {
                 console.log(response.data);
                 if (response.data.getredirect) {
-                    root = this.getRequest(response.data.getredirect);
+                    root.getRequest(response.data.getredirect);
                 }
                 else if (response.data.render) {
                     this.props.getForm(response.data);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    postRequest = (url) => {
+        let root = this;
+        axios.post(url)
+            .then(response => {
+                console.log(response.data);
+                if (response.data.getredirect) {
+                    root.getRequest(response.data.getredirect);
                 }
             })
             .catch(error => {
@@ -51,7 +65,7 @@ class Dashboard extends Component {
         catch (error) {
             console.log(error);
             let id = window.location.href.split("/");
-            let val='';
+            let val = '';
             for (let i = 0; i < id.length; i++) {
                 console.log(id[i]);
                 if (id[i] === 'dashboard') {
@@ -85,7 +99,7 @@ class Dashboard extends Component {
 
     onFormDelete = () => {
         let root = this;
-        axios.post('/user/delete/'+ this.props.user.user._id )
+        axios.post('/user/delete/' + this.props.user.user._id)
             .then(res => {
                 if (res.data.getredirect) {
                     root.getRequest(res.data.getredirect);
@@ -127,6 +141,7 @@ class Dashboard extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Score</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -138,7 +153,8 @@ class Dashboard extends Component {
                                         return (
                                             <tr>
                                                 <td>{item.friendname}</td>
-                                                <td>{item.score.type}</td>
+                                                <td>{item.score}</td>
+                                                <td onClick={() => this.postRequest('/user/delete/invite/'+item._id+"/"+this.props.user.user._id)}>X</td>
                                             </tr>
                                         )
                                     })
