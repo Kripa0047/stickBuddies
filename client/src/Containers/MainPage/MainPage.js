@@ -32,7 +32,7 @@ class MainPage extends Component {
             history.push('/dashboard/'+this.state.id);
         }
         if(pageName === "invite form"){
-            history.push('/answerform/'+this.state.inviteData.master._id);
+            history.push('/answerform/'+ this.state.inviteData.user._id +"/"+this.state.inviteData.master._id);
         }
         if(pageName === "invite page"){
             history.push('/invite/'+this.state.inviteData.master._id);
@@ -72,6 +72,16 @@ class MainPage extends Component {
         })
     }
 
+    ansData = (data) => {
+        console.log("inv dat: ", this.state.inviteData);
+        let root = this;
+        this.setState({
+            inviteData: data
+        }, function() {
+            root.renderPage(data.render);
+        })
+    }
+
     render() {
         return (
             <div>
@@ -81,7 +91,7 @@ class MainPage extends Component {
                         {/* exact path="/props-through-component" component={() => <PropsPage title={`Props through component`} />} /> */}
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
                         <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
-                        <Route exact path='/answerform/:id' component={() => <AnswerForm data={this.state.inviteData} />} />
+                        <Route exact path='/answerform/:id/:fid' component={() => <AnswerForm data={this.state.inviteData} getAns={this.ansData} />} />
                         <Route exact path='/dashboard/:id' component={() => <Dashboard user={this.state.user} getForm={this.getForm} />} />
                         <Route path='/yourScore' exact component={YourScore} />
                         <Route exact path='/invite/:fid'  component={() => <Invite inviteDataF={this.inviteData} data={this.state.inviteData} />} />

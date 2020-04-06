@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './AnswerForm.module.css';
 import Answer from '../../Components/Answer/Answer';
+import axios from 'axios';
 
 class AnswerForm extends Component {
     state = {
@@ -8,7 +9,8 @@ class AnswerForm extends Component {
         questions: [],
         options: [],
         answers: [],
-        score: 0
+        score: 0,
+        username: null
     }
 
     componentDidMount() {
@@ -66,20 +68,20 @@ class AnswerForm extends Component {
         let score = this.state.score;
         let answers = [...this.state.answers];
         let questionNumber = this.state.questionNumber;
-        document.getElementById("op"+id+index).checked = true;
-        if(index === answers[id].index){
-            document.getElementById("ta"+id+index).setAttribute("style", "background-color: #6bff77");
+        document.getElementById("op" + id + index).checked = true;
+        if (index === answers[id].index) {
+            document.getElementById("ta" + id + index).setAttribute("style", "background-color: #6bff77");
             score++;
         }
-        else{
-            document.getElementById("ta"+id+index).setAttribute("style", "background-color: #ff4e47");
-            document.getElementById("ta"+id+answers[id].index).setAttribute("style", "background-color: #6bff77");
+        else {
+            document.getElementById("ta" + id + index).setAttribute("style", "background-color: #ff4e47");
+            document.getElementById("ta" + id + answers[id].index).setAttribute("style", "background-color: #6bff77");
         }
 
         let timer = setInterval(() => {
-            document.getElementById("op"+id+index).checked = false;
-            document.getElementById("ta"+id+index).removeAttribute("style");
-            document.getElementById("ta"+id+answers[id].index).removeAttribute("style");
+            document.getElementById("op" + id + index).checked = false;
+            document.getElementById("ta" + id + index).removeAttribute("style");
+            document.getElementById("ta" + id + answers[id].index).removeAttribute("style");
             if (questionNumber < 9) {
                 questionNumber++;
                 this.setState({
@@ -89,9 +91,68 @@ class AnswerForm extends Component {
             clearInterval(timer);
         }, 500);
 
-        if(questionNumber === 9) {
+        if (questionNumber === 9) {
             // API call will be made
             console.log("SUBMITED");
+        }
+    }
+
+    getRequest = (url) => {
+        let root = this;
+        axios.get(url)
+            .then(response => {
+                console.log(response.data);
+                if (response.data.getredirect) {
+                    root.getRequest(response.data.getredirect);
+                }
+                else if (response.data.render) {
+                    root.props.getAns(response.data);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    componentDidMount() {
+        let username = null;
+        try {
+            username = this.props.data.user.user;
+        }
+        catch (error) {
+            let root = this;
+            console.log(error);
+            let id = window.location.href.split("/");
+            let val1;
+            let val2;
+            for (let i = 0; i < id.length; i++) {
+                console.log(id[i]);
+                if (id[i] === 'answerform') {
+                    val1 = id[i + 1];
+                    val2 = id[i + 2];
+                    break;
+                }
+            }
+            if (val1[val1.length - 1] === "#") {
+                val1 = val1.substring(0, val1.length - 1);
+            }
+            if (val2[val2.length - 1] === "#") {
+                val2 = val2.substring(0, val2.length - 1);
+            }
+            console.log(val1);
+            axios.get('/invite/form/' + val1 + "/" + val2)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.getredirect) {
+                        root.getRequest(res.data.getredirect);
+                    }
+                    else if (res.data.render) {
+                        root.props.getAns(res.data);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
 

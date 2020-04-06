@@ -39,10 +39,10 @@ class QuestionsForm extends Component {
                 .then(res => {
                     console.log(res.data);
                     if (res.data.getredirect) {
-                        root = this.getRequest(res.data.getredirect);
+                        root.getRequest(res.data.getredirect);
                     }
                     else if (res.data.render) {
-                        this.props.getForm(res.data);
+                        root.props.getForm(res.data);
                     }
                 })
                 .catch(error => {
@@ -187,10 +187,10 @@ class QuestionsForm extends Component {
             .then(response => {
                 console.log(response.data);
                 if (response.data.getredirect) {
-                    root = this.getRequest(response.data.getredirect);
+                    root.getRequest(response.data.getredirect);
                 }
                 else if (response.data.render) {
-                    this.props.getForm(response.data);
+                    root.props.getForm(response.data);
                 }
             })
             .catch(error => {
