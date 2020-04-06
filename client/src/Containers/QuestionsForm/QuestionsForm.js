@@ -218,7 +218,7 @@ class QuestionsForm extends Component {
             for (let i = 0; i < 10; i++) {
                 let val = {
                     ques: questions[i].ques,
-                    answer: answers[i],
+                    ans: answers[i],
                     options: options[i].options
                 }
                 arr.push(val);
