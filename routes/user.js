@@ -83,6 +83,7 @@ router.get('/user/form/:id', (req, res) => {
             }
         })
     } else {
+        console.log("no id")
         // res.redirect('/');
         res.json({
             render:"login"
