@@ -261,10 +261,10 @@ router.post('/invite/form/:uid/:fid', (req, res) => {
                                             res.send(err)
 
                                         } else {
-                                            ninvite.ans = req.body;
+                                            ninvite.ans = req.body.answers;
                                             for (var i = 0; i < ffriend.qa.length; i++) {
                                                 ninvite.correctans.push(ffriend.qa[i].ans);
-                                                if (ffriend.qa[i].ans == req.body[i]) {
+                                                if (ffriend.qa[i].ans == req.body.answers[i]) {
                                                     ninvite.score = ninvite.score + 1;
                                                 }
                                             }
