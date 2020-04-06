@@ -154,7 +154,7 @@ class Invite extends Component {
                                             return (
                                                 <tr>
                                                     <td>{item.friendname}</td>
-                                                    <td>{item.score.type}</td>
+                                                    <td>{item.score}</td>
                                                 </tr>
                                             )
                                         })

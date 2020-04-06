@@ -207,7 +207,7 @@ class QuestionsForm extends Component {
         for (let i = 0; i < 10; i++) {
             if (answers[i].answer === null) {
                 alert("Please select an answer for Question " + (i + 1));
-                // submit = false;
+                submit = false;
                 break;
             }
         }
