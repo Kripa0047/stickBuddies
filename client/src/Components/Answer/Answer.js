@@ -12,7 +12,7 @@ const answer = (props) => {
                 {
                     props.options.map((option, index) => {
                         return (
-                            <div key={index} className={styles.option} onClick={() => props.onSelect(props.index, index)}>
+                            <div key={index} className={styles.option} onClick={props.selectedAns ? null : () => props.onSelect(props.index, index)}>
                                 <span className={styles.radioBox}><input type="radio" id={"op" + props.index + index} /></span>
                                 <div className={styles.textField}>
                                     <textarea id={"ta" + props.index + index} type="text" placeholder="Option!!" readOnly={true} value={option.option}
