@@ -226,6 +226,7 @@ class QuestionsForm extends Component {
             let data = {
                 qa: arr
             }
+            console.log("sub data: ", data);
             let root = this;
             axios.post('/user/form/' + this.props.user.user._id, data)
                 .then(res => {
