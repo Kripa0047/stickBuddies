@@ -56,22 +56,21 @@ class Invite extends Component {
     }
 
     componentDidMount() {
-        // console.log("inite props ", this.props.data);
+        console.log("inite props ", this.props.data);
         let username = null;
         let root = this;
         let invites = [];
         try {
             username = this.props.data.master.username;
             invites = [...this.props.data.invites];
+            console.log("no error")
         }
         catch (error) {
 
             if (root.props.data.render === "invite form") {
                 // console.log("nothind");
-            }
-
-            else {
-
+            }else {
+                // console.log("error")
                 let id = window.location.href.split("/");
                 let val = '';
                 for (let i = 0; i < id.length; i++) {
@@ -175,7 +174,7 @@ class Invite extends Component {
                     </div>
                 </div>
                 :
-                <div>boom</div>
+                <div></div>
         );
     }
 }
