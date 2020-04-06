@@ -55,7 +55,7 @@ class MainPage extends Component {
             <div>
                 <div id="phoneContent">
                     <Navbar />
-                    <Router history={history}>
+                    <Router history={hashHistory}>
                         {/* exact path="/props-through-component" component={() => <PropsPage title={`Props through component`} />} /> */}
                         <Route exact path='/' component={() => <Login getUser={this.getUser} />} />
                         <Route exact path='/questionsform/:id' component={() => <QuestionsForm user={this.state.user} getForm={this.getForm} />} />
