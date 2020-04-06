@@ -87,6 +87,7 @@ class YourScore extends Component {
     render() {
         return (
             <div>
+                <div>{this.state.friendtype}</div>
                 <div>
                     <div className={styles.resultQuiz}>Excellent, you have scored {this.state.score} in the quiz about {this.state.mastername}</div>
                     {/* <div className="resultQuiz"></div> */}
@@ -111,7 +112,7 @@ class YourScore extends Component {
                     <div className={styles.inviteLink} onClick={()=>{this.getRequest('/user/form/'+this.props.data.user._id)}}>Create Your Quiz</div>
                     <div className={styles.scoreResultOf}>Scoreboard of {this.state.mastername}</div>
                 </div>
-                <div>{this.state.friendtype}</div>
+                
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
                         <tr>
@@ -128,7 +129,7 @@ class YourScore extends Component {
                                     return (
                                         <tr key={index}>
                                             <td>{friend.friendname}</td>
-                                            <td>{friend.score}</td>
+                                            <td>{friend.score}/10</td>
                                         </tr>
                                     )
                                 })

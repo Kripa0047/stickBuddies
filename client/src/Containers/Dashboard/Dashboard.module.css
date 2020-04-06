@@ -35,11 +35,10 @@
 }
 
 .col    {
-    display: inline-block;
-    width: 46%;
+    width: 100%;
     text-align: center;
-    margin: 10px 2%;
     border-radius: 5px;
+    margin: 10px 0;
     padding: 10px 0;
     vertical-align: middle;
     color: #ffffff;
@@ -79,4 +78,19 @@
 
 .createNew  {
     margin-bottom: 20px;
+}
+
+.popupConatiner {
+    position: absolute;
+    width: 90%;
+    top: 0;
+    display: none;
+}
+
+.exitPopup  {
+    padding: 10px 0;
+    margin: 10px 0;
+    background-color: rgb(173, 0, 0);
+    color: #ffffff;
+    border-radius: 5px;
 }
