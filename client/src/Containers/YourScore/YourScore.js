@@ -34,7 +34,7 @@ class YourScore extends Component {
         try {
             mastername = this.props.data.master.username;
             score = this.props.data.invite.score;
-            friendtype = this.props.data.invite.score;
+            friendtype = this.props.data.invite.friendtype;
         }
         catch (error) {
             let root = this;
@@ -79,7 +79,8 @@ class YourScore extends Component {
 
         this.setState({
             mastername,
-            score
+            score,
+            friendtype
         });
     }
 
@@ -110,7 +111,7 @@ class YourScore extends Component {
                     <div className={styles.inviteLink} onClick={()=>{this.getRequest('/user/form/'+this.props.data.user._id)}}>Create Your Quiz</div>
                     <div className={styles.scoreResultOf}>Scoreboard of {this.state.mastername}</div>
                 </div>
-                {/* <div>{this.props.data.invite.friendtype}</div> */}
+                <div>{this.state.friendtype}</div>
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
                         <tr>
