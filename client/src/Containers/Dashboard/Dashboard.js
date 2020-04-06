@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './Dashboard.module.css';
 // importing icons
 import whatsAppIcon from '../../asserts/icons/whatsapp-brands.svg';
-import instagramIcon from '../../asserts/icons/instagram-brands.svg';
+import twitterIcon from '../../asserts/icons/twitter-brands.svg';
 import messengerIcon from '../../asserts/icons/facebook-messenger-brands.svg';
 import eyeIcon from '../../asserts/icons/eye-regular.svg';
 import deleteIcon from '../../asserts/icons/trash-alt-solid.svg';
@@ -145,12 +145,12 @@ class Dashboard extends Component {
                     <div onClick={this.textCopyHandler} className={styles.copyLink}>Copy Link</div>
 
                     <div>
-                        <div onClick={() => window.open("fb-messenger://share?link="+this.props.user.user.sharelink, '_blank')} className={styles.col} style={{ backgroundColor: "#0084FF" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Share Messenger</div>
+                        <div onClick={() => window.open("fb-messenger://share?link="+this.props.user.user.sharelink, '_blank')} className={styles.col} style={{ backgroundColor: "#0084FF" }}><img className={styles.icon} src={messengerIcon} alt="icon" height="30" /> Share Messenger</div>
                         <div onClick={() => window.open("whatsapp://send?text=%F0%9F%99%8B%E2%80%8D%E2%99%80 *Best Buddy Challenge 2020* %F0%9F%99%8B%E2%80%8D%E2%99%82%0A How much do you know about me? %E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9%0A"+this.props.user.user.sharelink)} className={styles.col} style={{ backgroundColor: "#00b54b" }}><img className={styles.icon} src={whatsAppIcon} alt="icon" height="30" /> Get Status</div>
                     </div>
 
                     <div>
-                        <div onClick={() => window.open("https://twitter.com/share?text=%F0%9F%99%8B%E2%80%8D%E2%99%80+%2ABest+Buddy+Challenge+2020%2A+%F0%9F%99%8B%E2%80%8D%E2%99%82%0A+How+much+do+you+know+about+me%3F+%E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9&url="+this.props.user.user.sharelink+"%3Futm_source%3Dshare%26utm_medium%3Dtwitter%26utm_campaign%3Dtwitter-shares")} className={styles.col} style={{ backgroundColor: "#00acee" }}><img className={styles.icon} src={instagramIcon} alt="icon" height="30" />twitter</div>
+                        <div onClick={() => window.open("https://twitter.com/share?text=%F0%9F%99%8B%E2%80%8D%E2%99%80+%2ABest+Buddy+Challenge+2020%2A+%F0%9F%99%8B%E2%80%8D%E2%99%82%0A+How+much+do+you+know+about+me%3F+%E2%98%BA%F0%9F%A4%97%0A%F0%9F%A4%A9%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%91%87%F0%9F%A4%A9&url="+this.props.user.user.sharelink+"%3Futm_source%3Dshare%26utm_medium%3Dtwitter%26utm_campaign%3Dtwitter-shares")} className={styles.col} style={{ backgroundColor: "#00acee" }}><img className={styles.icon} src={twitterIcon} alt="icon" height="30" /> twitter</div>
                     </div>
 
                     <div className={styles.scoreResultOf}>Scoreboard of {this.props.user.user.username}</div>

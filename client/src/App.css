@@ -4,6 +4,7 @@ body {
   width: 90%;
   margin: auto;
   background-image: url('./asserts/image/background.jpg');
+  background-size: contain;
 }
 
 .App {
