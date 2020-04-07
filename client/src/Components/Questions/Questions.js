@@ -30,7 +30,7 @@ const questions = (props) => {
                             <div key={index} className={styles.option}>
                                 <span className={styles.radioBox}><input onClick={() => props.onAnswer(props.options.id, index)} type="radio" name="option" /></span>
                                 <div className={styles.textField}>
-                                    <textarea onChange={(e) => props.onOptionChange(e.target.value, props.options.id, index)} type="text" placeholder="Option!!" value={option.option} />
+                                    <textarea id={"ta"+ props.question.id + index} onChange={(e) => props.onOptionChange(e.target.value, props.options.id, index)} type="text" placeholder="Option!!" value={option.option} />
                                 </div>
                                 <div className={styles.cancel} onClick={() => props.onDelete(props.options.id, index)}>x</div>
                             </div>

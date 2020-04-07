@@ -135,9 +135,23 @@ class QuestionsForm extends Component {
         });
     }
 
+    colorOption = () => {
+        let answers = [...this.state.answers];
+        let options = [...this.state.options];
+        options.forEach(element => {
+            element.options.forEach((e, index) => {
+                if(e.option === answers[element.id].answer){
+                    document.getElementById("ta"+element.id+index).style.backgroundColor = "#36aa00";
+                }
+                else{
+                    document.getElementById("ta"+element.id+index).style.backgroundColor = "#ffffff";
+                }
+            });
+        });
+    }
+
     deleteOptionHandler = (id, index) => {
         let options = [...this.state.options];
-        options[id].options.splice(index, 1);
         let answers = [...this.state.answers];
         if (answers.id !== null) {
             if (index === answers[id].index) {
@@ -145,6 +159,7 @@ class QuestionsForm extends Component {
                 answers[id].index = null;
             }
         }
+        options[id].options.splice(index, 1);
         this.setState({
             options,
             answers
@@ -168,8 +183,11 @@ class QuestionsForm extends Component {
         };
         let answers = [...this.state.answers];
         answers[id] = answer;
+        let root = this;
         this.setState({
             answers
+        }, function() {
+            root.colorOption();
         });
     }
 

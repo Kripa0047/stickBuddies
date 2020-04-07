@@ -87,10 +87,10 @@ class YourScore extends Component {
     render() {
         return (
             <div>
-                <div>{this.state.friendtype}</div>
                 <div>
+                    <div className={styles.friendHeader}>You are {this.state.mastername}'s</div>
+                    <div className={styles.friendtype}>{this.state.friendtype}</div>
                     <div className={styles.resultQuiz}>Excellent, you have scored {this.state.score} in the quiz about {this.state.mastername}</div>
-                    {/* <div className="resultQuiz"></div> */}
 
                     <div className={styles.meterContainer}>
                         <div className={styles.dial}>
@@ -109,10 +109,10 @@ class YourScore extends Component {
                     </div>
 
                     <div className={styles.inviteText}>Now, it's your turn. Create your own quiz and send it to your friends</div>
-                    <div className={styles.inviteLink} onClick={()=>{this.getRequest('/user/form/'+this.props.data.user._id)}}>Create Your Quiz</div>
+                    <div className={styles.inviteLink} onClick={() => { this.getRequest('/user/form/' + this.props.data.user._id) }}>Create Your Quiz</div>
                     <div className={styles.scoreResultOf}>Scoreboard of {this.state.mastername}</div>
                 </div>
-                
+
                 <table className={styles.scoreTable}>
                     <thead className={styles.tableHead}>
                         <tr>

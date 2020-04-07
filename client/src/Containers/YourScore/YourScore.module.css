@@ -128,3 +128,15 @@
 .tableHead > tr {
     height: 40px;
 }
+
+.friendHeader   {
+    font-size: 80%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.friendtype {
+    font-size: 120%;
+    font-weight: 500;
+    margin-bottom: 30px;
+}

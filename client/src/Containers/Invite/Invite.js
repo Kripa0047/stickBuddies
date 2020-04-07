@@ -149,9 +149,9 @@ class Invite extends Component {
                                 {
                                     this.state.invites.length !== 0
                                         ?
-                                        this.props.data.invites.map((item) => {
+                                        this.props.data.invites.map((item, index) => {
                                             return (
-                                                <tr>
+                                                <tr key={index}>
                                                     <td>{item.friendname}</td>
                                                     <td>{item.score}/10</td>
                                                 </tr>
