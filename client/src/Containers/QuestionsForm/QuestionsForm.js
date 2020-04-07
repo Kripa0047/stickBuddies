@@ -158,11 +158,16 @@ class QuestionsForm extends Component {
                 answers[id].answer = null;
                 answers[id].index = null;
             }
+            else if(index < answers[id].index){
+                answers[id].index--;
+            }
         }
         options[id].options.splice(index, 1);
         this.setState({
             options,
             answers
+        }, function(){
+            this.colorOption();
         });
     }
 
