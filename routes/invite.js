@@ -19,7 +19,7 @@ router.get('/invite/:fid', (req, res) => {
                 res.send(err);
             } else {
                 if (fuser != null) {
-                    if (fuser.qa.length<1) {
+                    if (fuser.qa.length < 1) {
                         // req.flash("error", "no quiz now");
                         // res.redirect('/');
                         res.json({
@@ -108,6 +108,8 @@ router.post('/invite/new/:fid', (req, res) => {
                 })
             } else {
                 if (req.params.fid.match(/^[0-9a-fA-F]{24}$/)) {
+                    user.username = req.body.name;
+                    user.save();
                     // Yes, it's a valid ObjectId, proceed with `findById` call.
                     User.findOne({ _id: req.params.fid }, (err, fuser) => {
                         if (err) {
@@ -129,6 +131,8 @@ router.post('/invite/new/:fid', (req, res) => {
                     })
 
                 } else {
+                    user.username = req.body.name;
+                    user.save();
                     req.flash("error", "no such invitation");
                     // res.redirect('/user/'+user._id);
                     res.json({
@@ -366,9 +370,9 @@ router.get('/invite/results/:uid/:fid/:iid', (req, res) => {
                                                             // res.render('invite/results', { invites: finvites, invite: finvite, user: fuser, friend: ffriend });
                                                             res.json({ render: "result page", invite: finvite, invites: finvites, user: fuser, master: ffriend });
                                                         }
-    
+
                                                     })
-    
+
                                                 } else {
                                                     // req.flash('error', "no such invite");
                                                     // res.redirect('/invite/form/' + fuser._id + '/' + ffriend._id);
@@ -380,10 +384,10 @@ router.get('/invite/results/:uid/:fid/:iid', (req, res) => {
                                         })
                                     } else {
                                         res.json({
-                                            getredirect:"/invite/form/"+fuser._id+"/"+ffriend._id
+                                            getredirect: "/invite/form/" + fuser._id + "/" + ffriend._id
                                         })
                                     }
-                                    
+
                                 } else {
                                     req.flash("error", "no such invitation");
                                     // res.redirect('/user/form/' + fuser._id);

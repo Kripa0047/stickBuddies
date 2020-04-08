@@ -37,8 +37,10 @@ router.post('/user/new', (req, res) => {
                     }
                 })
             } else {
-
+                fuser.username=req.body.name;
+                fuser.save();
                 console.log("found")
+
                 res.json({
                     getredirect: "/user/form/" + fuser._id
                 });
