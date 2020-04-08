@@ -219,10 +219,26 @@ router.get('/invite/form/:uid/:fid', (req, res) => {
                             }
                         })
                     } else {
-                        // res.redirect('/invite/results/' + req.params.uid + "/" + req.params.fid + '/' + finvite._id);
-                        res.json({
-                            getredirect: "/invite/results/" + req.params.uid + "/" + req.params.fid + "/" + finvite._id
+                        User.findOne({ _id: req.params.uid }, (err, fuser) => {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                User.findOne({ _id: req.params.fid }, (err, ffriend) => {
+                                    if (err) {
+                                        res.send(err);
+                                    } else {
+                                        finvite.username = ffriend.username;
+                                        finvite.friendname = fuser.username;
+                                        finvite.save();
+                                        // res.redirect('/invite/results/' + req.params.uid + "/" + req.params.fid + '/' + finvite._id);
+                                        res.json({
+                                            getredirect: "/invite/results/" + req.params.uid + "/" + req.params.fid + "/" + finvite._id
+                                        })
+                                    }
+                                })
+                            }
                         })
+
                     }
                 }
             })
